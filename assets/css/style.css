@@ -13,5 +13,13 @@
 }
 
 .box-container {
+	position: absolute;
+	left: 50%;
 	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	background-color: #FFFFFF;
+	box-shadow: 0 5px 10px rgba(119, 108, 108, .1);
+	padding: 30px 20px;
+	box-sizing: border-box;
 }

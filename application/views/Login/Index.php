@@ -48,8 +48,21 @@
 
 <body style="background-color: #F9FBFD;">
 
-    <div class="box-container align-items-center mx-auto bg-danger w-25">
+    <div class="box-container align-items-center w-25">
         <h1 class="text-center">Login</h1>
+        <form id="formOutlet">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="txtNamaOutlet">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+            </div>
+            <div class="btn-login pl-2 pr-2 mt-4 align-items-center mb-3">
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </div>
+        </form>
     </div>
 
 
