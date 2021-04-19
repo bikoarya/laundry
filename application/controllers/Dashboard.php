@@ -5,7 +5,7 @@ class Dashboard extends CI_Controller
 {
     public function index()
     {
-        $data['title'] = 'GO-Laundry';
+        $data['title'] = 'Go-Laundry | Dashboard';
         $this->load->view('Templates/Header', $data);
         $this->load->view('Templates/Sidebar');
         $this->load->view('Dashboard');

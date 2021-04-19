@@ -356,6 +356,30 @@ $("#editOutlet").click(function () {
 	});
 });
 
+$("#logout").click(function () {
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-primary',
+			cancelButton: 'btn btn-light mr-3'
+		},
+		buttonsStyling: false
+	})
+
+	swalWithBootstrapButtons.fire({
+		title: 'Yakin Ingin Keluar?',
+		text: "Keluar Halaman",
+		icon: 'question',
+		showCancelButton: true,
+		confirmButtonText: 'Keluar',
+		cancelButtonText: 'Batal',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.value) {
+			window.location.href = site_url + "Login/Logout";
+		}
+	});
+})
+
 // Update Paket
 $("#editPaket").click(function () {
 	$("#formEditPaket").validate({

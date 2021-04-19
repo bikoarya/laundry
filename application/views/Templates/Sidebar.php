@@ -4,7 +4,7 @@
         <div class="logo-header" data-background-color="blue">
 
             <a href="index.html" class="logo">
-                <h4 class="text-white" style="font-family: Arial, Helvetica, sans-serif; margin-top: 20px; font-weight: bold; letter-spacing: 1px;">GO-Laundry</h4>
+                <h4 class="text-white" style="font-family: 'Bebas Neue', cursive; margin-top: 18px; font-size: 22px; letter-spacing: 3px;">GO-Laundry</h4>
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
@@ -27,24 +27,24 @@
                 <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                     <li class="nav-item dropdown hidden-caret">
                         <a class="dropdown-toggle d-flex align-items-center" data-toggle="dropdown" href="#" aria-expanded="false">
-                            <p class="text-white m-0 mr-3">Administrator</p>
+                            <p class="text-white m-0 mr-3"><?= $this->session->userdata('nama_lengkap'); ?></p>
                             <div class="avatar-sm mr-4">
-                                <img src="assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="<?= base_url('assets/img/user.jpg') ?>" alt="User" class="avatar-img rounded-circle">
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-user animated fadeIn">
                             <div class="dropdown-user-scroll scrollbar-outer">
                                 <li>
                                     <div class="user-box">
-                                        <div class="avatar-lg"><img src="assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
-                                        <div class="u-text">
-                                            <h4>Hizrian</h4>
-                                            <p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                        <div class="avatar-lg"><img src="assets/img/user.jpg" alt="image profile" class="avatar-img rounded"></div>
+                                        <div class="u-text mt-1">
+                                            <h4><?= $this->session->userdata('nama_lengkap'); ?></h4>
+                                            <p class="text-muted"><?= $this->session->userdata('nama_role'); ?></p>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Logout</a>
+                                    <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);" id="logout">Logout</a>
                                 </li>
                             </div>
                         </ul>
@@ -76,6 +76,12 @@
                         <a href="Paket">
                             <i class="fas fa-th-list"></i>
                             <p>Paket</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Paket">
+                            <i class="fas fa-users"></i>
+                            <p>Member</p>
                         </a>
                     </li>
                     <li class="nav-item">

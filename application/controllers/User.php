@@ -7,7 +7,7 @@ class User extends CI_Controller
     {
         $data['outlet'] = $this->model->get('t_outlet');
         $data['role'] = $this->model->get('t_role');
-        $data['title'] = 'GO-Laundry | User';
+        $data['title'] = 'Go-Laundry | User';
         $this->load->view('Templates/Header', $data);
         $this->load->view('Templates/Sidebar');
         $this->load->view('User/Index');
@@ -21,7 +21,7 @@ class User extends CI_Controller
             'username' => htmlspecialchars($this->input->post('username')),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'id_outlet' => htmlspecialchars($this->input->post('outlet')),
-            'id_role' => htmlspecialchars($this->input->post('role'))
+            'nama_role' => htmlspecialchars($this->input->post('role'))
         ];
 
         $this->db->insert('t_user', $data);
@@ -36,7 +36,7 @@ class User extends CI_Controller
     {
         $join = [
             't_outlet' => 't_user.id_outlet=t_outlet.id_outlet',
-            't_role' => 't_user.id_role=t_role.id_role'
+            't_role' => 't_user.nama_role=t_role.nama_role'
         ];
         $data['query'] = $this->model->joins('t_user', $join, '')->result_array();
         $this->load->view('User/DataUser', $data);
@@ -61,7 +61,7 @@ class User extends CI_Controller
                 'username'         => $username,
                 'password'         => $newPassword,
                 'id_outlet'        => $outlet,
-                'id_role'          => $role
+                'nama_role'          => $role
             ];
             $this->model->put('t_user', $data, $where);
         } else {
@@ -69,7 +69,7 @@ class User extends CI_Controller
                 'nama_lengkap'     => $namaLengkap,
                 'username'         => $username,
                 'id_outlet'        => $outlet,
-                'id_role'          => $role,
+                'nama_role'          => $role,
                 'password'         => $oldPass
             ];
             $this->model->put('t_user', $data, $where);

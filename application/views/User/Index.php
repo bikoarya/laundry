@@ -72,7 +72,7 @@
                             <select class="form-control role" name="txtRole" id="txtRole" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
                                 <?php foreach ($role as $rol) : ?>
-                                    <option value="<?= $rol['id_role'] ?>"><?= $rol['nama_role']; ?></option>
+                                    <option value="<?= $rol['nama_role'] ?>"><?= $rol['nama_role']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -129,7 +129,7 @@
                             <select class="form-control editRole" name="editRole" id="editRole" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
                                 <?php foreach ($role as $rol) : ?>
-                                    <option value="<?= $rol['id_role'] ?>"><?= $rol['nama_role']; ?></option>
+                                    <option value="<?= $rol['nama_role'] ?>"><?= $rol['nama_role']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

@@ -46,6 +46,11 @@ $('.editRole').select2({
 	theme: 'bootstrap4'
 });
 
+// Set Timer Alert Login
+// window.setTimeout(function () {
+// 	$("#alert").alert('close');
+// }, 2000);
+
 
 var rupiah = document.getElementById('txtHargaPaket');
 		rupiah.addEventListener('keyup', function(e){

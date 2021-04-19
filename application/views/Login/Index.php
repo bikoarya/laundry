@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title><?= $title; ?></title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="<?= base_url('assets/img/icon.ico') ?>" type="image/x-icon" />
+    <link rel="icon" href="<?= base_url('assets/img/icon.jpg') ?>" type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <script src="<?= base_url('assets/js/plugin/webfont/webfont.min.js') ?>"></script>
@@ -46,20 +46,22 @@
     </script>
 </head>
 
-<body style="background-color: #F9FBFD;">
-
+<body style="background-color: #E8E9EF;">
+    <?= $this->session->flashdata('message'); ?>
     <div class="box-container align-items-center w-25">
-        <h1 class="text-center">Login</h1>
-        <form id="formOutlet">
+        <h1 class="text-center mt-2 mb-3">Login</h1>
+        <form id="formLogin" method="POST" action="<?= site_url('Login') ?>">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off">
+                <?= form_error('username', '<small class="text-danger pl-1">', '</small>'); ?>
             </div>
             <div class="form-group">
                 <label for="txtNamaOutlet">Password</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+                <?= form_error('password', '<small class="text-danger pl-1">', '</small>'); ?>
             </div>
-            <div class="btn-login pl-2 pr-2 mt-4 align-items-center mb-3">
+            <div class="btn-login mt-4 mb-4 pl-2 pr-2">
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </div>
         </form>
