@@ -45,19 +45,19 @@ class Models extends CI_Model
         return $data;
     }
 
-    public function countBarang()
+    public function countPaket()
     {
         $this->db->select('*');
-        return $this->db->get('t_barang')->num_rows();
+        return $this->db->get('t_paket')->num_rows();
     }
-    public function countKategori()
+    public function countMember()
     {
         $this->db->select('*');
-        return $this->db->get('t_kategori')->num_rows();
+        return $this->db->get('t_member')->num_rows();
     }
-    public function countTransaksi()
+    public function countOutlet()
     {
         $this->db->select('*');
-        return $this->db->get('t_transaksi')->num_rows();
+        return $this->db->get('t_outlet')->num_rows();
     }
 }

@@ -54,6 +54,7 @@
                             <label for="txtjenisPaket">Jenis</label>
                             <select class="form-control jenisPaket" data-size="5" name="txtJenisPaket" id="txtJenisPaket" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
+                                <option value="newPaket">Lainnya</option>
                                 <?php foreach ($jenis as $j) : ?>
                                     <option value="<?= $j['id_jenis'] ?>"><?= $j['jenis']; ?></option>
                                 <?php endforeach; ?>
@@ -76,6 +77,32 @@
                 <div class="modal-footer" style="border-top: 0 none;">
                     <button type="button" class="btn btn-light mr-2" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary" id="simpanPaket">Simpan</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Jenis -->
+    <div class="modal fade" id="modalPaket" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="border: none;">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0 none;">
+                    <h3 class="modal-title mt-3" id="exampleModalLabel" style="font-weight: bold;">Tambah Jenis</h3>
+                    <button type="button" class="close mt-1 mr-2" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formJenis">
+                        <div class="form-group">
+                            <label for="jenis">Nama Jenis</label>
+                            <input type="text" class="form-control" name="jenis" id="jenis" placeholder="Nama Jenis" autocomplete="off">
+                        </div>
+                </div>
+                <div class="modal-footer" style="border-top: 0 none;">
+                    <button type="button" class="btn btn-light mr-2" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="simpanJenis">Simpan</button>
                 </div>
                 </form>
             </div>

@@ -17,7 +17,7 @@
                                             <td>No</td>
                                             <td>Nama Outlet</td>
                                             <td>Alamat</td>
-                                            <td>No. Tlp</td>
+                                            <td>No. Telpon</td>
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>

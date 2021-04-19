@@ -25,14 +25,24 @@ class Login extends CI_Controller
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        $user = $this->db->get_where('t_user', ['username' => $username])->row_array();
+        $where = [
+            'username' => $username
+        ];
+
+        $join = [
+            't_role' => 't_user.nama_role=t_role.nama_role',
+            't_outlet' => 't_user.id_outlet=t_outlet.id_outlet'
+        ];
+
+        $user = $this->model->joins('t_user', $join, $where)->row_array();
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $data = [
                     'nama_lengkap' => $user['nama_lengkap'],
                     'username' => $user['username'],
-                    'nama_role' => $user['nama_role']
+                    'nama_role' => $user['nama_role'],
+                    'nama_outlet' => $user['nama_outlet']
                 ];
                 $this->session->set_userdata($data);
                 redirect('Dashboard');

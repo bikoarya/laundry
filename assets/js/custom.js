@@ -46,10 +46,13 @@ $('.editRole').select2({
 	theme: 'bootstrap4'
 });
 
-// Set Timer Alert Login
-// window.setTimeout(function () {
-// 	$("#alert").alert('close');
-// }, 2000);
+$("#txtJenisPaket").change(function () {
+	if ($(this).val() == "newPaket") {
+		$("#txtJenisPaket").html("");
+		$('#addPaket').modal('hide');
+		$('#modalPaket').modal('show');
+	}
+});
 
 
 var rupiah = document.getElementById('txtHargaPaket');

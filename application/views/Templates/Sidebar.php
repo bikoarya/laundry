@@ -3,7 +3,7 @@
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="blue">
 
-            <a href="index.html" class="logo">
+            <a href="<?= site_url('Dashboard') ?>" class="logo">
                 <h4 class="text-white" style="font-family: 'Bebas Neue', cursive; margin-top: 18px; font-size: 22px; letter-spacing: 3px;">GO-Laundry</h4>
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,9 +37,10 @@
                                 <li>
                                     <div class="user-box">
                                         <div class="avatar-lg"><img src="assets/img/user.jpg" alt="image profile" class="avatar-img rounded"></div>
-                                        <div class="u-text mt-1">
+                                        <div class="u-text">
                                             <h4><?= $this->session->userdata('nama_lengkap'); ?></h4>
-                                            <p class="text-muted"><?= $this->session->userdata('nama_role'); ?></p>
+                                            <p class="text-muted mt-0"><?= $this->session->userdata('nama_role'); ?></p>
+                                            <p class="text-muted mt--1"><?= $this->session->userdata('nama_outlet'); ?></p>
                                         </div>
                                     </div>
                                 </li>
@@ -64,6 +65,7 @@
                         <a href="<?= site_url('Dashboard') ?>">
                             <i class="fas fa-home"></i>
                             <p>Dashboard</p>
+                            <input type="hidden" value="<?= $sess = $this->session->userdata('nama_role'); ?>">
                         </a>
                     </li>
                     <li class="nav-section">
@@ -72,36 +74,46 @@
                         </span>
                         <h4 class="text-section">SUB MENU</h4>
                     </li>
-                    <li class="nav-item">
-                        <a href="Paket">
-                            <i class="fas fa-th-list"></i>
-                            <p>Paket</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="Paket">
-                            <i class="fas fa-users"></i>
-                            <p>Member</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= site_url('Outlet') ?>">
-                            <i class="fas fa-map-marked-alt"></i>
-                            <p>Outlet</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <i class="fas fa-coins"></i>
-                            <p>Transaksi</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= site_url('User') ?>">
-                            <i class="fas fa-user"></i>
-                            <p>User</p>
-                        </a>
-                    </li>
+                    <?php if ($sess == 'Admin') { ?>
+                        <li class="nav-item">
+                            <a href="<?= site_url('Paket') ?>">
+                                <i class="fas fa-th-list"></i>
+                                <p>Paket</p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($sess != 'Owner') { ?>
+                        <li class="nav-item">
+                            <a href="<?= site_url('Member') ?>">
+                                <i class="fas fa-users"></i>
+                                <p>Member</p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($sess == 'Admin') { ?>
+                        <li class="nav-item">
+                            <a href="<?= site_url('Outlet') ?>">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Outlet</p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($sess != 'Owner') { ?>
+                        <li class="nav-item">
+                            <a href="#">
+                                <i class="fas fa-coins"></i>
+                                <p>Transaksi</p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($sess != 'Owner') { ?>
+                        <li class="nav-item">
+                            <a href="<?= site_url('User') ?>">
+                                <i class="fas fa-user"></i>
+                                <p>User</p>
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>

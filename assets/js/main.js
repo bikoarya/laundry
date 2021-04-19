@@ -122,9 +122,9 @@ $("#simpanPaket").click(function () {
 				},
 				success: function (data) {
 					$("#txtNamaPaket").val("");
-					$("#txtJenisPaket").val("");
+					$('#txtJenisPaket').html("");
 					$("#txtHargaPaket").val("");
-					$("#txtOutletPaket").val("");
+					$("#txtOutletPaket").html("");
 					$("#dataPaket").html(data);
 					$("#addPaket").modal("hide");
 
@@ -133,6 +133,50 @@ $("#simpanPaket").click(function () {
 						'Data berhasil ditambahkan.',
 						'success'
 					)
+				}
+			});
+		}
+	});
+});
+
+// Tambah Jenis
+$("#simpanJenis").click(function () {
+	$("#formJenis").validate({
+		rules: {
+			jenis: {
+				required: true
+			}
+		},
+		messages: {
+			jenis: {
+				required: "Masukkan nama jenis."
+			},
+            txtAlamatOutlet: {
+                required: "Masukkan alamat."
+            }
+		},
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let jenis = $("#jenis").val();
+
+			$.ajax({
+				url: site_url + "Paket/insertJenis",
+				type: "POST",
+				data: {
+					jenis: jenis
+				},
+				success: function (data) {
+					$("#jenis").val("");
+					$("#modalPaket").modal("hide");
+					$("#addPaket").modal("show");
+					$("#txtJenisPaket").val(data).trigger("change");
 				}
 			});
 		}
@@ -206,10 +250,86 @@ $("#simpanUser").click(function () {
 					$("#txtNamaLengkap").val("");
 					$("#txtUsername").val("");
 					$("#txtPassword").val("");
-					$("#txtOutletUser").val("");
-					$("#txtRole").val("");
+					$("#txtOutletUser").html("");
+					$("#txtRole").html("");
 					$("#dataUser").html(data);
 					$("#addUser").modal("hide");
+
+					Swal.fire(
+						'Berhasil!',
+						'Data berhasil ditambahkan.',
+						'success'
+					)
+				}
+			});
+		}
+	});
+});
+
+// Tambah Member
+$("#dataMember").load(site_url + "Member/showData");
+$("#simpanMember").click(function () {
+	$("#formMember").validate({
+		rules: {
+			txtNamaMember: {
+				required: true
+			},
+            txtAlamatMember: {
+                required: true
+            },
+            gender: {
+                required: true
+            },
+			txtTlp: {
+				required: true,
+				number: true
+			}
+		},
+		messages: {
+			txtNamaMember: {
+				required: "Masukkan nama lengkap."
+			},
+            txtAlamatMember: {
+                required: "Masukkan alamat."
+            },
+            gender: {
+                required: "Masukkan jenis kelamin."
+            },
+			txtTlp: {
+				required: "Masukkan nomor telepon.",
+				number: "Harap masukkan angka."
+			}
+		},
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let nama = $("#txtNamaMember").val();
+			let alamat = $("#txtAlamatMember").val();
+			let gender = $('input[name="gender"]:checked').val();
+			let tlp = $("#txtTlp").val();
+
+			$.ajax({
+				url: site_url + "Member/insert",
+				type: "POST",
+				data: {
+					nama: nama,
+                    alamat: alamat,
+                    gender: gender,
+					tlp: tlp
+				},
+				success: function (data) {
+					$("#txtNamaMember").val("");
+					$("#txtAlamatMember").val("");
+					$('input[name="gender"]').prop('checked', false).change();
+					$("#txtTlp").val("");
+					$("#dataMember").html(data);
+					$("#addMember").modal("hide");
 
 					Swal.fire(
 						'Berhasil!',
@@ -265,6 +385,21 @@ $(document).on('click', '.editUser', function () {
 	$("#oldPass").val(oldPass);
 	$("#editOutletUser").val(outlet).trigger("change");
 	$("#editRole").val(role).trigger("change");
+});
+
+// Kirim Value Edit Member
+$(document).on('click', '.editMember', function () {
+	var id = $(this).data('id_member');
+	var nama = $(this).data('nama');
+	var alamat = $(this).data('alamat');
+	var gender = $(this).data('gender');
+	var tlp = $(this).data('tlp');
+
+	$("#id_member").val(id);
+	$("#txtEditNamaMember").val(nama);
+	$("#txtEditAlamatMember").val(alamat);
+	$("input[name='editGender'][value=" + gender + "]").prop('checked', true);
+	$("#editTlpMember").val(tlp);
 });
 
 // Update Outlet
@@ -337,9 +472,6 @@ $("#editOutlet").click(function () {
 							tlp: tlp
 						},
 						success: function (data) {
-							$("#editNamaOutlet").val("");
-							$("#editAlamatOutlet").val("");
-							$("#editNoTlp").val("");
 							$("#dataOutlet").load(site_url + "Outlet/showData");
 							$("#editOutlet").modal("hide");
 
@@ -456,10 +588,6 @@ $("#editPaket").click(function () {
 							outlet: outlet
 						},
 						success: function (data) {
-							$("#editNamaPaket").val("");
-							$("#editJenisPaket").val("");
-							$("#editHargaPaket").val("");
-							$("#editOutletPaket").val("");
 							$("#dataPaket").load(site_url + "Paket/showData");
 							$("#editPaket").modal("hide");
 
@@ -556,13 +684,102 @@ $("#editUser").click(function () {
 							oldPass: oldPass
 						},
 						success: function (data) {
-							$("#editNamaLengkap").val("");
-							$("#editUsername").val("");
-							$("#editPassword").val("");
-							$("#editOutletUser").val("");
-							$("#editRole").val("");
 							$("#dataUser").load(site_url + "User/showData");
 							$("#editUser").modal("hide");
+
+							Swal.fire(
+								'Berhasil!',
+								'Data berhasil diubah.',
+								'success'
+							)
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
+// Update Member
+$("#editMember").click(function () {
+	$("#formEditMember").validate({
+		rules: {
+			txtEditNamaMember: {
+				required: true
+			},
+			txtEditAlamatMember: {
+				required: true
+			},
+			editGender: {
+				required: true
+			},
+			editTlpMember: {
+				required: true,
+				number: true
+			}
+		},
+		messages: {
+			txtEditNamaMember: {
+				required: "Masukkan nama lengkap."
+			},
+			txtEditAlamatMember: {
+				required: "Masukkan alamat."
+			},
+			editGender: {
+				required: "Masukkan jenis kelamin."
+			},
+			editTlpMember: {
+				required: "Masukkan nomor telepon.",
+				number: "Harap masukkan angka."
+			}
+		},
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let id = $("#id_member").val();
+			let nama = $("#txtEditNamaMember").val();
+			let alamat = $("#txtEditAlamatMember").val();
+			let gender = $('input[name="editGender"]:checked').val();
+			let tlp = $("#editTlpMember").val();
+
+			const swalWithBootstrapButtons = Swal.mixin({
+				customClass: {
+					confirmButton: 'btn btn-primary',
+					cancelButton: 'btn btn-light mr-3'
+				},
+				buttonsStyling: false
+			})
+
+			swalWithBootstrapButtons.fire({
+				title: 'Apakah Anda Yakin?',
+				text: "Mengubah Data",
+				icon: 'question',
+				showCancelButton: true,
+				confirmButtonText: 'Ya, Ubah',
+				cancelButtonText: 'Batal',
+				reverseButtons: true
+			}).then((result) => {
+				if (result.value) {
+
+					$.ajax({
+						type: "POST",
+						url: site_url + "Member/update",
+						data: {
+							id: id,
+							nama: nama,
+							alamat: alamat,
+							gender: gender,
+							tlp: tlp
+						},
+						success: function (data) {
+							$("#dataMember").load(site_url + "Member/showData");
+							$("#editMember").modal("hide");
 
 							Swal.fire(
 								'Berhasil!',
@@ -691,6 +908,48 @@ $("#dataUser").on('click', '.hapusUser', function () {
 				},
 				success: function (data) {
 					$("#dataUser").load(site_url + "User/showData");
+
+					Swal.fire(
+						'Berhasil!',
+						'Data berhasil dihapus.',
+						'success'
+					)
+				}
+			});
+		}
+	});
+});
+
+// Hapus Member
+$("#dataMember").on('click', '.hapusMember', function () {
+	var id = $(this).data("id_member");
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-primary',
+			cancelButton: 'btn btn-light mr-3'
+		},
+		buttonsStyling: false
+	})
+
+	swalWithBootstrapButtons.fire({
+		title: 'Apakah Anda Yakin?',
+		text: "Menghapus Data",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Ya, Hapus',
+		cancelButtonText: 'Batal',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.value) {
+
+			$.ajax({
+				type: "POST",
+				url: site_url + "Member/delete",
+				data: {
+					id: id
+				},
+				success: function (data) {
+					$("#dataMember").load(site_url + "Member/showData");
 
 					Swal.fire(
 						'Berhasil!',

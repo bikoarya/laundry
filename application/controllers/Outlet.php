@@ -30,8 +30,21 @@ class Outlet extends CI_Controller
     }
     public function data()
     {
-        $data['query'] = $this->model->get('t_outlet');
-        $this->load->view('Outlet/DataOutlet', $data);
+        $query = $this->model->get('t_outlet');
+        $output = '';
+
+        foreach ($query as $row => $value) {
+            $output .= '
+				<tr>
+				<td>' . ($row + 1) . '</td>
+				<td>' . $value['nama_outlet'] . '</td>
+				<td>' . $value['alamat'] . '</td>
+				<td>' . $value['tlp'] . '</td>
+				<td> <a href="javascript:void(0);" class="text-success editOutlet" data-id_outlet="' . $value['id_outlet'] . '" data-nama="' . $value['nama_outlet'] . '" data-alamat="' . $value['alamat'] . '" data-tlp="' . $value['tlp'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editOutlet"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusOutlet" data-id_outlet="' . $value['id_outlet'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
+				</tr>';
+        }
+
+        return $output;
     }
 
     public function update()

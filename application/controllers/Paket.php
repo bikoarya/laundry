@@ -31,6 +31,15 @@ class Paket extends CI_Controller
         echo $this->showData();
     }
 
+    public function insertJenis()
+    {
+        $data = [
+            'jenis' => htmlspecialchars($this->input->post('jenis'))
+        ];
+
+        $this->db->insert('t_jenis', $data);
+    }
+
     public function showData()
     {
         echo $this->data();
@@ -41,8 +50,22 @@ class Paket extends CI_Controller
             't_outlet' => 't_paket.id_outlet=t_outlet.id_outlet',
             't_jenis' => 't_paket.id_jenis=t_jenis.id_jenis'
         ];
-        $data['query'] = $this->model->joins('t_paket', $join, '')->result_array();
-        $this->load->view('Paket/DataPaket', $data);
+        $query = $this->model->joins('t_paket', $join, '')->result_array();
+        $output = '';
+
+        foreach ($query as $row => $value) {
+            $output .= '
+				<tr>
+				<td>' . ($row + 1) . '</td>
+				<td>' . $value['nama_paket'] . '</td>
+				<td>' . $value['jenis'] . '</td>
+				<td>Rp. ' . number_format($value['harga']) . '</td>
+				<td>' . $value['nama_outlet'] . '</td>
+				<td> <a href="javascript:void(0);" class="text-success editPaket" data-id_paket="' . $value['id_paket'] . '" data-nama_paket="' . $value['nama_paket'] . '" data-jenis="' . $value['id_jenis'] . '" data-harga="' . $value['harga'] . '" data-outlet="' . $value['id_outlet'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editPaket"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusPaket" data-id_paket="' . $value['id_paket'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
+				</tr>';
+        }
+
+        return $output;
     }
 
     public function update()
