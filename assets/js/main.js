@@ -122,9 +122,9 @@ $("#simpanPaket").click(function () {
 				},
 				success: function (data) {
 					$("#txtNamaPaket").val("");
-					$('#txtJenisPaket').html("");
+					$('#txtJenisPaket').val("");
 					$("#txtHargaPaket").val("");
-					$("#txtOutletPaket").html("");
+					$("#txtOutletPaket").val("");
 					$("#dataPaket").html(data);
 					$("#addPaket").modal("hide");
 
@@ -250,8 +250,8 @@ $("#simpanUser").click(function () {
 					$("#txtNamaLengkap").val("");
 					$("#txtUsername").val("");
 					$("#txtPassword").val("");
-					$("#txtOutletUser").html("");
-					$("#txtRole").html("");
+					$("#txtOutletUser").val("");
+					$("#txtRole").val("");
 					$("#dataUser").html(data);
 					$("#addUser").modal("hide");
 
@@ -330,6 +330,94 @@ $("#simpanMember").click(function () {
 					$("#txtTlp").val("");
 					$("#dataMember").html(data);
 					$("#addMember").modal("hide");
+
+					Swal.fire(
+						'Berhasil!',
+						'Data berhasil ditambahkan.',
+						'success'
+					)
+				}
+			});
+		}
+	});
+});
+
+// Tambah Transaksi
+$("#dataTransaksi").load(site_url + "Transaksi/load");
+$("#simpanTransaksi").click(function () {
+	$("#formTransaksi").validate({
+		rules: {
+			tNamaMember: {
+				required: true
+			},
+            tNamaPaket: {
+                required: true
+            },
+            tBerat: {
+                required: true
+            },
+			tglSelesai: {
+				required: true
+			}
+		},
+		messages: {
+			tNamaMember: {
+				required: "Masukkan nama member."
+			},
+            tNamaPaket: {
+                required: "Masukkan nama paket."
+            },
+            tBerat: {
+                required: "Masukkan berat (kg)."
+            },
+			tglSelesai: {
+				required: "Masukkan tanggal."
+			}
+		},
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let invoice = $("#txtKodeInvoice").val();
+			let id = $("#cart").val();
+			let tgl = $("#tglTerima").val();
+			let user = $("#tPetugas").val();
+			let outlet = $("#tOutlet").val();
+			let member = $("#tNamaMember").val();
+			let paket = $("#tNamaPaket").val();
+			let berat = $("#tBerat").val();
+			let harga = $("#tHarga").val();
+			let tglSelesai = $("#tglSelesai").val();
+
+			$.ajax({
+				url: site_url + "Transaksi/add",
+				type: "POST",
+				data: {
+					invoice: invoice,
+					id: id,
+                    tgl: tgl,
+                    user: user,
+					outlet: outlet,
+					member: member,
+					paket: paket,
+					berat: berat,
+					harga: harga,
+					tglSelesai: tglSelesai
+				},
+				success: function (data) {
+					$("#tNamaMember").val("");
+					$("#tNamaPaket").val("");
+					$("#tBerat").val("");
+					$("#berat").hide();
+					$("#tHarga").val("");
+					$("#tglSelesai").val("");
+					$("#dataTransaksi").html(data);
+					$("#addTransaksi").modal("hide");
 
 					Swal.fire(
 						'Berhasil!',

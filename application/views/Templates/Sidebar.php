@@ -100,13 +100,13 @@
                     <?php } ?>
                     <?php if ($sess != 'Owner') { ?>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="<?= site_url('Transaksi') ?>">
                                 <i class="fas fa-coins"></i>
                                 <p>Transaksi</p>
                             </a>
                         </li>
                     <?php } ?>
-                    <?php if ($sess != 'Owner') { ?>
+                    <?php if ($sess == 'Admin') { ?>
                         <li class="nav-item">
                             <a href="<?= site_url('User') ?>">
                                 <i class="fas fa-user"></i>
@@ -114,6 +114,12 @@
                             </a>
                         </li>
                     <?php } ?>
+                    <li class="nav-item">
+                        <a href="<?= site_url('Laporan') ?>">
+                            <i class="fas fa-print"></i>
+                            <p>Laporan</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

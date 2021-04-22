@@ -54,7 +54,6 @@
                             <label for="txtjenisPaket">Jenis</label>
                             <select class="form-control jenisPaket" data-size="5" name="txtJenisPaket" id="txtJenisPaket" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
-                                <option value="newPaket">Lainnya</option>
                                 <?php foreach ($jenis as $j) : ?>
                                     <option value="<?= $j['id_jenis'] ?>"><?= $j['jenis']; ?></option>
                                 <?php endforeach; ?>

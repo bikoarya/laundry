@@ -1,3 +1,18 @@
+$.fn.inputFilter = function(inputFilter) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  }
+
 $('.jenisPaket').select2({
 	placeholder: "Pilih Jenis",
 	allowClear: true,
@@ -46,61 +61,112 @@ $('.editRole').select2({
 	theme: 'bootstrap4'
 });
 
-$("#txtJenisPaket").change(function () {
-	if ($(this).val() == "newPaket") {
-		$("#txtJenisPaket").html("");
-		$('#addPaket').modal('hide');
-		$('#modalPaket').modal('show');
+$('.tMember').select2({
+	placeholder: "Pilih Member",
+	allowClear: true,
+	theme: 'bootstrap4'
+});
+
+$('.tPaket').select2({
+	placeholder: "Pilih Paket",
+	allowClear: true,
+	theme: 'bootstrap4'
+});
+
+$("#tglSelesai").datepicker({
+	dateFormat: "yy-mm-dd",
+	autoclose: true
+});
+
+// $("#txtJenisPaket").change(function () {
+// 	if ($(this).val() == "newPaket") {
+// 		$("#txtJenisPaket").html("");
+// 		$('#addPaket').modal('hide');
+// 		$('#modalPaket').modal('show');
+// 	}
+// });
+
+$("#berat").hide();
+$("#tNamaPaket").change(function () {
+	const option = $('option:selected', this).attr('harga');
+	const jenis = $('option:selected', this).attr('jenis');
+
+	if (jenis == 'Kiloan') {
+		$("#berat").show();
+		if (option) {
+			$("#tHarga").val("Rp. " + option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+		}
+	}else {
+		$("#berat").hide();
+		if (option) {
+			$("#tHarga").val("Rp. " + option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+		}
 	}
 });
 
+const timeWrapper = $('#time');
+const tgl = Date.now();
 
-var rupiah = document.getElementById('txtHargaPaket');
-		rupiah.addEventListener('keyup', function(e){
-			// tambahkan 'Rp.' pada saat form di ketik
-			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-			rupiah.value = formatRupiah(this.value, 'Rp. ');
-		});
- 
-		/* Fungsi formatRupiah */
-		function formatRupiah(angka, prefix){
-			var number_string = angka.replace(/[^,\d]/g, '').toString(),
-			split   		= number_string.split(','),
-			sisa     		= split[0].length % 3,
-			rupiah     		= split[0].substr(0, sisa),
-			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
- 
-			// tambahkan titik jika yang di input sudah menjadi angka ribuan
-			if(ribuan){
-				separator = sisa ? '.' : '';
-				rupiah += separator + ribuan.join('.');
-			}
- 
-			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-		}
+function time() {
+  var d = new Date();
+  var s = d.getSeconds();
+  var m = d.getMinutes();
+  var h = d.getHours();
+  timeWrapper.text(("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2))
+}
 
-		var rp = document.getElementById('editHargaPaket');
-		rp.addEventListener('keyup', function(e){
-			// tambahkan 'Rp.' pada saat form di ketik
-			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-			rp.value = formatRupiah(this.value, 'Rp. ');
-		});
+setInterval(time, 1000);
+
+$("#txtHargaPaket, #editHargaPaket").inputFilter(function(value) {
+    return /^\d*$/.test(value);    // Allow digits only, using a RegExp
+  })
+
+// var rupiah = document.getElementById('txtHargaPaket');
+// 		rupiah.addEventListener('keyup', function(e){
+// 			// tambahkan 'Rp.' pada saat form di ketik
+// 			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+// 			rupiah.value = formatRupiah(this.value, 'Rp. ');
+// 		});
  
-		/* Fungsi formatRupiah */
-		function formatRupiah(angka, prefix){
-			var number_string = angka.replace(/[^,\d]/g, '').toString(),
-			split   		= number_string.split(','),
-			sisa     		= split[0].length % 3,
-			rp     		= split[0].substr(0, sisa),
-			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+// 		/* Fungsi formatRupiah */
+// 		function formatRupiah(angka, prefix){
+// 			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+// 			split   		= number_string.split(','),
+// 			sisa     		= split[0].length % 3,
+// 			rupiah     		= split[0].substr(0, sisa),
+// 			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
  
-			// tambahkan titik jika yang di input sudah menjadi angka ribuan
-			if(ribuan){
-				separator = sisa ? '.' : '';
-				rp += separator + ribuan.join('.');
-			}
+// 			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+// 			if(ribuan){
+// 				separator = sisa ? '.' : '';
+// 				rupiah += separator + ribuan.join('.');
+// 			}
  
-			rp = split[1] != undefined ? rp + ',' + split[1] : rp;
-			return prefix == undefined ? rp : (rp ? 'Rp. ' + rp : '');
-		}
+// 			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+// 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+// 		}
+
+// 		var rp = document.getElementById('editHargaPaket');
+// 		rp.addEventListener('keyup', function(e){
+// 			// tambahkan 'Rp.' pada saat form di ketik
+// 			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+// 			rp.value = formatRupiah(this.value, 'Rp. ');
+// 		});
+ 
+// 		/* Fungsi formatRupiah */
+// 		function formatRupiah(angka, prefix){
+// 			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+// 			split   		= number_string.split(','),
+// 			sisa     		= split[0].length % 3,
+// 			rp     		= split[0].substr(0, sisa),
+// 			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+ 
+// 			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+// 			if(ribuan){
+// 				separator = sisa ? '.' : '';
+// 				rp += separator + ribuan.join('.');
+// 			}
+ 
+// 			rp = split[1] != undefined ? rp + ',' + split[1] : rp;
+// 			return prefix == undefined ? rp : (rp ? 'Rp. ' + rp : '');
+// 		}

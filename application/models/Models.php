@@ -60,4 +60,26 @@ class Models extends CI_Model
         $this->db->select('*');
         return $this->db->get('t_outlet')->num_rows();
     }
+
+    public function kode_invoice()
+    {
+        $this->db->SELECT('RIGHT(t_transaksi.kode_invoice,4) as kode', FALSE);
+        $this->db->order_by('kode_invoice', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('t_transaksi');
+        if ($query->num_rows() <> 0) {
+            // jika kodesudah ada
+            $data = $query->row();
+            $kode = intval($data->kode) + 1;
+        } else {
+            //jika kode belum ada
+            $kode = 1;
+        }
+        $tgl = date('Ym');
+        $tgl = substr($tgl, 2);
+        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
+        $kodejadi = "GL" . $kodemax . $tgl;
+
+        return $kodejadi;
+    }
 }

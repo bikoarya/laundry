@@ -1,6 +1,7 @@
 </div>
 <!--   Core JS Files   -->
 <script src="<?= base_url('assets/js/core/jquery.3.2.1.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/autoNumeric/autoNumeric.js') ?>"></script>
 <script src="<?= base_url('assets/js/core/popper.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/core/bootstrap.min.js') ?>"></script>
 
