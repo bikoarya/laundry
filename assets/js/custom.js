@@ -87,17 +87,20 @@ $("#tglSelesai").datepicker({
 // });
 
 $("#berat").hide();
+$("#qty").hide();
 $("#tNamaPaket").change(function () {
 	const option = $('option:selected', this).attr('harga');
 	const jenis = $('option:selected', this).attr('jenis');
 
 	if (jenis == 'Kiloan') {
+		$("#qty").hide();
 		$("#berat").show();
 		if (option) {
 			$("#tHarga").val("Rp. " + option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 		}
 	}else {
 		$("#berat").hide();
+		$("#qty").show();
 		if (option) {
 			$("#tHarga").val("Rp. " + option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 		}

@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group">
                             <label for="txtHargaPaket">Harga</label>
-                            <input type="text" class="form-control" name="txtHargaPaket" id="txtHargaPaket" placeholder="Harga" autocomplete="off">
+                            <input type="number" min="1" class="form-control" name="txtHargaPaket" id="txtHargaPaket" placeholder="Harga" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="txtOutletPaket">Outlet</label>

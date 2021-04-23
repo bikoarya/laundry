@@ -23,7 +23,7 @@ class Transaksi extends CI_Controller
         $this->load->view('Templates/Footer');
     }
 
-    public function add()
+    public function add($id)
     {
         $invoice        = htmlspecialchars($this->input->post('invoice'));
         $tgl            = htmlspecialchars($this->input->post('tgl'));
@@ -32,26 +32,43 @@ class Transaksi extends CI_Controller
         $member         = htmlspecialchars($this->input->post('member'));
         $paket          = htmlspecialchars($this->input->post('paket'));
         $berat          = htmlspecialchars($this->input->post('berat'));
+        $qty            = htmlspecialchars($this->input->post('qty'));
         $harga1         = htmlspecialchars($this->input->post('harga'));
         $harga2         = str_replace("Rp. ", "", $harga1);
         $harga          = str_replace(".", "", $harga2);
         $tglSelesai     = htmlspecialchars($this->input->post('tglSelesai'));
 
-        $cart = [
-            'id'                => $id,
-            'name'              => $paket,
-            'price'             => $harga,
-            'kode_invoice'      => $invoice,
-            'qty'               => $berat,
-            'nama'              => $member,
-            'tanggal'           => $tgl,
-            'nama_lengkap'      => $user,
-            'nama_outlet'       => $outlet,
-            'tgl_selesai'       => $tglSelesai,
-        ];
-
-        $this->cart->insert($cart);
-        echo $this->show_cart();
+        if ($berat != null) {
+            $cart = [
+                'id'                => $id,
+                'name'              => $paket,
+                'price'             => $harga,
+                'kode_invoice'      => $invoice,
+                'qty'               => $berat,
+                'nama'              => $member,
+                'tanggal'           => $tgl,
+                'nama_lengkap'      => $user,
+                'nama_outlet'       => $outlet,
+                'tgl_selesai'       => $tglSelesai,
+            ];
+            $this->cart->insert($cart);
+            echo $this->show_cart();
+        } else {
+            $cart = [
+                'id'                => $id,
+                'name'              => $paket,
+                'price'             => $harga,
+                'kode_invoice'      => $invoice,
+                'qty'               => $qty,
+                'nama'              => $member,
+                'tanggal'           => $tgl,
+                'nama_lengkap'      => $user,
+                'nama_outlet'       => $outlet,
+                'tgl_selesai'       => $tglSelesai,
+            ];
+            $this->cart->insert($cart);
+            echo $this->show_cart();
+        }
     }
 
     function load()

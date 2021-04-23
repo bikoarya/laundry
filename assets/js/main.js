@@ -356,6 +356,9 @@ $("#simpanTransaksi").click(function () {
             tBerat: {
                 required: true
             },
+			tQty: {
+				required: true
+			},
 			tglSelesai: {
 				required: true
 			}
@@ -370,6 +373,9 @@ $("#simpanTransaksi").click(function () {
             tBerat: {
                 required: "Masukkan berat (kg)."
             },
+			tQty: {
+				required: "Masukkan qty."
+			},
 			tglSelesai: {
 				required: "Masukkan tanggal."
 			}
@@ -391,11 +397,12 @@ $("#simpanTransaksi").click(function () {
 			let member = $("#tNamaMember").val();
 			let paket = $("#tNamaPaket").val();
 			let berat = $("#tBerat").val();
+			let qty = $("#tQty").val();
 			let harga = $("#tHarga").val();
 			let tglSelesai = $("#tglSelesai").val();
 
 			$.ajax({
-				url: site_url + "Transaksi/add",
+				url: site_url + "Transaksi/add/" +uuid.v4(),
 				type: "POST",
 				data: {
 					invoice: invoice,
@@ -406,6 +413,7 @@ $("#simpanTransaksi").click(function () {
 					member: member,
 					paket: paket,
 					berat: berat,
+					qty:qty,
 					harga: harga,
 					tglSelesai: tglSelesai
 				},
@@ -413,6 +421,7 @@ $("#simpanTransaksi").click(function () {
 					$("#tNamaMember").val("");
 					$("#tNamaPaket").val("");
 					$("#tBerat").val("");
+					$("#tQty").val("");
 					$("#berat").hide();
 					$("#tHarga").val("");
 					$("#tglSelesai").val("");

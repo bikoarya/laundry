@@ -4,7 +4,7 @@
         <div class="logo-header" data-background-color="blue">
 
             <a href="<?= site_url('Dashboard') ?>" class="logo">
-                <h4 class="text-white" style="font-family: 'Bebas Neue', cursive; margin-top: 18px; font-size: 22px; letter-spacing: 3px;">GO-Laundry</h4>
+                <h4 class="text-white" style="margin-top: 18px; font-weight: bold; font-size: 22px; letter-spacing: 1px;">GO-Laundry</h4>
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">

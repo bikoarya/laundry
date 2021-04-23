@@ -51,65 +51,71 @@
                     <form id="formTransaksi">
                         <div class="row">
                             <div class="col-6">
-                                <input type="text" class="form-control" name="txtKodeInvoice" id="txtKodeInvoice" placeholder="Kode invoice" autocomplete="off" readonly value="<?= $this->model->kode_invoice(); ?>" style="font-weight: bold; color: black">
-                            </div>
-                            <div class="form-group">
-                                <label for="tglTerima">Tanggal</label>
-                                <input type="text" class="form-control" name="tglTerima" id="tglTerima" placeholder="Tanggal terima" readonly value="<?= date('d M Y') ?>" autocomplete="off" style="font-weight: bold; color: black">
-                            </div>
-                            <div class="form-group">
-                                <label for="tPetugas">Petugas</label>
-                                <input type="text" class="form-control" name="tPetugas" id="tPetugas" placeholder="Petugas" autocomplete="off" readonly value="<?= $this->session->userdata('nama_lengkap'); ?>" style="font-weight: bold; color: black">
-                            </div>
-                            <div class="form-group">
-                                <label for="tOutlet">Outlet</label>
-                                <input type="text" class="form-control" name="tOutlet" id="tOutlet" placeholder="Outlet" autocomplete="off" readonly value="<?= $this->session->userdata('nama_outlet'); ?>" style="font-weight: bold; color: black">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="tNamaMember">Nama Member</label>
-                                <select class="form-control tMember" name="tNamaMember" id="tNamaMember" style="width: 100%;" autocomplete="off">
-                                    <option value=""></option>
-                                    <?php foreach ($member as $mbr) : ?>
-                                        <option value="<?= $mbr['nama'] ?>"><?= $mbr['nama']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="tNamaPaket">Nama Paket</label>
-                                <select class="form-control tPaket" name="tNamaPaket" id="tNamaPaket" style="width: 100%;" autocomplete="off">
-                                    <option value=""></option>
-                                    <?php foreach ($paket as $pkt) : ?>
-                                        <option harga="<?= $pkt['harga'] ?>" jenis="<?= $pkt['jenis'] ?>" value="<?= $pkt['nama_paket'] ?>"><?= $pkt['nama_paket']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-5" id="berat">
-                                        <label for="tBerat">Berat (Kg)</label>
-                                        <input type="number" class="form-control" name="tBerat" id="tBerat" placeholder="Berat (kg)" autocomplete="off" min="1">
-                                    </div>
-                                    <div class="col-7">
-                                        <label for="tHarga">Harga</label>
-                                        <input type="text" readonly class="form-control" name="tHarga" id="tHarga" placeholder="Harga" autocomplete="off" style="font-weight: bold; color: black">
-                                    </div>
+                                <div class="form-group">
+                                    <label for="txtKodeInvoice">Kode Invoice</label>
+                                    <input type="text" class="form-control" name="txtKodeInvoice" id="txtKodeInvoice" placeholder="Kode invoice" autocomplete="off" readonly value="<?= $this->model->kode_invoice(); ?>" style="font-weight: bold; color: black">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tglTerima">Tanggal</label>
+                                    <input type="text" class="form-control" name="tglTerima" id="tglTerima" placeholder="Tanggal terima" readonly value="<?= date('d M Y') ?>" autocomplete="off" style="font-weight: bold; color: black">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tPetugas">Petugas</label>
+                                    <input type="text" class="form-control" name="tPetugas" id="tPetugas" placeholder="Petugas" autocomplete="off" readonly value="<?= $this->session->userdata('nama_lengkap'); ?>" style="font-weight: bold; color: black">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tOutlet">Outlet</label>
+                                    <input type="text" class="form-control" name="tOutlet" id="tOutlet" placeholder="Outlet" autocomplete="off" readonly value="<?= $this->session->userdata('nama_outlet'); ?>" style="font-weight: bold; color: black">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="tglSelesai">Tgl Selesai</label>
-                                <input type="text" class="form-control" data-date-format="dd M yyyy" name="tglSelesai" id="tglSelesai" autocomplete="off" placeholder="Tanggal selesai">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="tNamaMember">Nama Member</label>
+                                    <select class="form-control tMember" name="tNamaMember" id="tNamaMember" style="width: 100%;" autocomplete="off">
+                                        <option value=""></option>
+                                        <?php foreach ($member as $mbr) : ?>
+                                            <option value="<?= $mbr['nama'] ?>"><?= $mbr['nama']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tNamaPaket">Nama Paket</label>
+                                    <select class="form-control tPaket" name="tNamaPaket" id="tNamaPaket" style="width: 100%;" autocomplete="off">
+                                        <option value=""></option>
+                                        <?php foreach ($paket as $pkt) : ?>
+                                            <option harga="<?= $pkt['harga'] ?>" jenis="<?= $pkt['jenis'] ?>" value="<?= $pkt['nama_paket'] ?>"><?= $pkt['nama_paket']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-5" id="berat">
+                                            <label for="tBerat">Berat (Kg)</label>
+                                            <input type="number" class="form-control" name="tBerat" id="tBerat" placeholder="Berat (kg)" autocomplete="off" min="1">
+                                        </div>
+                                        <div class="col-5" id="qty">
+                                            <label for="tQty">Qty</label>
+                                            <input type="number" class="form-control" name="tQty" id="tQty" placeholder="Qty" autocomplete="off" min="1">
+                                        </div>
+                                        <div class="col-7">
+                                            <label for="tHarga">Harga</label>
+                                            <input type="text" readonly class="form-control" name="tHarga" id="tHarga" placeholder="Harga" autocomplete="off" style="font-weight: bold; color: black">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tglSelesai">Tgl Selesai</label>
+                                    <input type="text" class="form-control" data-date-format="dd M yyyy" name="tglSelesai" id="tglSelesai" autocomplete="off" placeholder="Tanggal selesai">
+                                </div>
                             </div>
                         </div>
-                </div>
 
+                </div>
+                <div class="modal-footer" style="border-top: 0 none;">
+                    <button type="button" class="btn btn-light mr-2" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="simpanTransaksi">Tambah</button>
+                </div>
+                </form>
             </div>
-            <div class="modal-footer" style="border-top: 0 none;">
-                <button type="button" class="btn btn-light mr-2" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" id="simpanTransaksi">Tambah</button>
-            </div>
-            </form>
         </div>
-    </div>
-</div>
+        <!-- </div> -->
