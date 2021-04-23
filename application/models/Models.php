@@ -75,10 +75,8 @@ class Models extends CI_Model
             //jika kode belum ada
             $kode = 1;
         }
-        $tgl = date('Ym');
-        $tgl = substr($tgl, 2);
-        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
-        $kodejadi = "GL" . $kodemax . $tgl;
+        $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT);
+        $kodejadi = "GL" . $kodemax;
 
         return $kodejadi;
     }

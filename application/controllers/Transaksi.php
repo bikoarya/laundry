@@ -71,6 +71,29 @@ class Transaksi extends CI_Controller
         }
     }
 
+    public function simpanTransaksi()
+    {
+        foreach ($this->cart->contents() as $items) {
+
+            $insert = [
+                'kode_invoice' => $items['kode_invoice'],
+                'nama' => $items['nama'],
+                'nama_paket' => $items['name'],
+                'berat' => $items['qty'],
+                'nama_outlet' => $items['nama_outlet'],
+                'nama_lengkap' => $items['tanggal'],
+                'tanggal' => $items['tanggal'],
+                'status' => 'Baru',
+                'status_bayar' => 'Belum bayar',
+                'tgl_selesai' => date('Y-m-d', $items['tgl_selesai']),
+                'diskon' => 0
+            ];
+            $insert = $this->db->insert('t_transaksi', $insert);
+        }
+        $this->cart->destroy();
+        redirect('Transaksi');
+    }
+
     function load()
     {
         echo $this->show_cart();

@@ -30,6 +30,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="btn-simpan d-flex align-items-center justify-content-end mt-3">
+                                <a href="<?= site_url('Transaksi/simpanTransaksi') ?>" class="btn btn-primary">Simpan</a>
+                            </div>
                         </div>
                     </div>
                 </div>
