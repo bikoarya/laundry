@@ -12,6 +12,17 @@
 	border-color: rgba(161, 161, 161, .2);
 }
 
+.status {
+	background-color: #f7ef02;
+	padding: 3px 12px;
+}
+
+.statusBayar {
+	background-color: #e82c17;
+	color: white;
+	padding: 3px 10px;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	/* display: none; <- Crashes Chrome on hover */

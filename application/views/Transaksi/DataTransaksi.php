@@ -20,9 +20,11 @@
                                             <td>Nama Member</td>
                                             <td>Paket</td>
                                             <td>Tgl Selesai</td>
-                                            <td>Harga</td>
-                                            <td>Berat</td>
-                                            <td>Total</td>
+                                            <!-- <td>Harga</td> -->
+                                            <!-- <td>Berat</td> -->
+                                            <td>Status</td>
+                                            <td>Bayar</td>
+                                            <!-- <td>Total</td> -->
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>

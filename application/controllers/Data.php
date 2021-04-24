@@ -24,6 +24,7 @@ class Data extends CI_Controller
         $query = $this->model->joins('t_transaksi', $join, '')->result_array();
         $output = '';
 
+        // <td>Rp. ' . number_format($value['harga'], 0, ',', '.') . '</td>
         foreach ($query as $row => $value) {
             $total = $value['berat'] * $value['harga'];
             $output .= '
@@ -34,9 +35,8 @@ class Data extends CI_Controller
 				<td>' . $value['nama'] . '</td>
 				<td>' . $value['nama_paket'] . '</td>
 				<td>' . $value['tgl_selesai'] . '</td>
-				<td>Rp. ' . number_format($value['harga'], 0, ',', '.') . '</td>
-				<td>' . $value['berat'] . '</td>
-				<td style="white-space: nowrap">Rp. ' . number_format($total, 0, ',', '.') . '</td>
+				<td><span class="status">' . $value['status'] . '</span></td>
+				<td style="white-space: nowrap"><span class="statusBayar">' . $value['status_bayar'] . '</span></td>
 				<td> <a href="javascript:void(0);" class="text-success editTransaksi" data-id_transaksi="' . $value['id_transaksi'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editPaket"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusTransaksi" data-id_transaksi="' . $value['id_transaksi'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
 				</tr>';
         }
