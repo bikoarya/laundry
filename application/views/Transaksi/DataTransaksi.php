@@ -16,10 +16,10 @@
                                         <tr>
                                             <td>No</td>
                                             <td>Kode Invoice</td>
-                                            <td>Tanggal Terima</td>
+                                            <td>Tgl Terima</td>
                                             <td>Nama Member</td>
                                             <td>Paket</td>
-                                            <td>Tanggal Selesai</td>
+                                            <td>Tgl Selesai</td>
                                             <td>Harga</td>
                                             <td>Berat</td>
                                             <td>Total</td>
