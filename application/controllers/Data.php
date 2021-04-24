@@ -11,4 +11,36 @@ class Data extends CI_Controller
         $this->load->view('Transaksi/DataTransaksi');
         $this->load->view('Templates/Footer');
     }
+
+    public function showData()
+    {
+        echo $this->dataTransaksi();
+    }
+    public function dataTransaksi()
+    {
+        $join = [
+            't_paket' => 't_transaksi.nama_paket=t_paket.nama_paket'
+        ];
+        $query = $this->model->joins('t_transaksi', $join, '')->result_array();
+        $output = '';
+        $total = 0;
+
+        foreach ($query as $row => $value) {
+            $output .= '
+				<tr>
+				<td>' . ($row + 1) . '</td>
+				<td>' . $value['kode_invoice'] . '</td>
+				<td>' . $value['tanggal'] . '</td>
+				<td>' . $value['nama'] . '</td>
+				<td>' . $value['nama_paket'] . '</td>
+				<td>' . $value['tgl_selesai'] . '</td>
+				<td>Rp. ' . number_format($value['harga'], 0, ',', '.') . '</td>
+				<td>' . $value['berat'] . '</td>
+				<td>' . $value['berat'] . '</td>
+				<td> <a href="javascript:void(0);" class="text-success editTransaksi" data-id_transaksi="' . $value['id_transaksi'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editPaket"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusTransaksi" data-id_transaksi="' . $value['id_transaksi'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
+				</tr>';
+        }
+
+        return $output;
+    }
 }

@@ -22,11 +22,11 @@
                                             <td>Tanggal Selesai</td>
                                             <td>Harga</td>
                                             <td>Berat</td>
-                                            <td>Sub Total</td>
+                                            <td>Total</td>
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>
-                                    <tbody id="data">
+                                    <tbody id="historyTransaksi">
 
                                     </tbody>
                                 </table>
