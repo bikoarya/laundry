@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="tglTerima">Tanggal</label>
-                                    <input type="text" class="form-control" name="tglTerima" id="tglTerima" placeholder="Tanggal terima" readonly value="<?= date('d M Y H:i:s') ?>" autocomplete="off" style="font-weight: bold; color: black">
+                                    <input type="text" class="form-control" name="tglTerima" id="tglTerima" placeholder="Tanggal terima" readonly value="<?= date('d M Y') ?>" autocomplete="off" style="font-weight: bold; color: black">
                                 </div>
                                 <div class="form-group">
                                     <label for="tPetugas">Petugas</label>
