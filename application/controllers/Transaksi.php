@@ -81,11 +81,11 @@ class Transaksi extends CI_Controller
                 'nama_paket' => $items['name'],
                 'berat' => $items['qty'],
                 'nama_outlet' => $items['nama_outlet'],
-                'nama_lengkap' => $items['tanggal'],
-                'tanggal' => $items['tanggal'],
+                'nama_lengkap' => $items['nama_lengkap'],
+                'tanggal' => date('Y-m-d', strtotime($items['tanggal'])),
                 'status' => 'Baru',
                 'status_bayar' => 'Belum bayar',
-                'tgl_selesai' => date('Y-m-d', $items['tgl_selesai']),
+                'tgl_selesai' => date('Y-m-d', strtotime($items['tgl_selesai'])),
                 'diskon' => 0
             ];
             $insert = $this->db->insert('t_transaksi', $insert);
@@ -113,6 +113,7 @@ class Transaksi extends CI_Controller
 			<td>' . $items['tanggal'] . '</td>
 			<td>' . $items['nama'] . '</td>
 			<td>' . $items['name'] . '</td>
+			<td>' . $items['tgl_selesai'] . '</td>
 			<td>Rp. ' . number_format($items['price'], 0, ',', '.') . '</td>
 			<td>' . $items['qty'] . '</td>
 			<td>Rp. ' . number_format($total, 0, ',', '.') . '</td>
@@ -121,5 +122,10 @@ class Transaksi extends CI_Controller
 			';
         }
         return $output;
+    }
+
+    public function grandTotal()
+    {
+        echo 'Rp. ' . number_format($this->cart->total(), 0, ',', '.');
     }
 }

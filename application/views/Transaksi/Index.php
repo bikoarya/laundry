@@ -9,6 +9,7 @@
                         </div>
                         <div class="card-body">
                             <button class="btn btn-primary ml-1 mt-3 mb-5" data-toggle="modal" data-target="#addTransaksi"> <i class="fas fa-plus mr-2 fa-lg"></i>Tambah Transaksi</button>
+                            <a href="<?= site_url('Data') ?>" class="btn btn-warning ml-1 mt-3 mb-5"> <i class="fas fa-list mr-2 fa-lg"></i>Data Transaksi</a>
 
                             <div class="table-responsive">
                                 <table class="table table-hover" width="100%">
@@ -16,21 +17,28 @@
                                         <tr>
                                             <td>No</td>
                                             <td>Kode Invoice</td>
-                                            <td>Tanggal</td>
+                                            <td>Tanggal Terima</td>
                                             <td>Nama Member</td>
                                             <td>Paket</td>
+                                            <td>Tanggal Selesai</td>
                                             <td>Harga</td>
                                             <td>Berat</td>
-                                            <td>Total</td>
+                                            <td>Sub Total</td>
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>
                                     <tbody id="dataTransaksi">
 
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="8" class="text-center" style="border: none">TOTAL</th>
+                                            <th id="grandTotal" style="border: none"></th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
-                            <div class="btn-simpan d-flex align-items-center justify-content-end mt-3">
+                            <div class="btn-simpan d-flex align-items-center justify-content-end mt-3 mb-3">
                                 <a href="<?= site_url('Transaksi/simpanTransaksi') ?>" class="btn btn-primary">Simpan</a>
                             </div>
                         </div>
@@ -60,7 +68,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="tglTerima">Tanggal</label>
-                                    <input type="text" class="form-control" name="tglTerima" id="tglTerima" placeholder="Tanggal terima" readonly value="<?= date('d M Y') ?>" autocomplete="off" style="font-weight: bold; color: black">
+                                    <input type="text" class="form-control" name="tglTerima" id="tglTerima" placeholder="Tanggal terima" readonly value="<?= date('d M Y H:i:s') ?>" autocomplete="off" style="font-weight: bold; color: black">
                                 </div>
                                 <div class="form-group">
                                     <label for="tPetugas">Petugas</label>

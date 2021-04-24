@@ -342,6 +342,7 @@ $("#simpanMember").click(function () {
 	});
 });
 
+$("#grandTotal").load(site_url + "Transaksi/grandTotal");
 // Tambah Transaksi
 $("#dataTransaksi").load(site_url + "Transaksi/load");
 $("#simpanTransaksi").click(function () {
@@ -418,6 +419,7 @@ $("#simpanTransaksi").click(function () {
 					tglSelesai: tglSelesai
 				},
 				success: function (data) {
+					$("#grandTotal").load(site_url + "Transaksi/grandTotal");
 					$("#tNamaMember").val("");
 					$("#tNamaPaket").val("");
 					$("#tBerat").val("");
