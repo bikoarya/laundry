@@ -12,9 +12,15 @@
 	border-color: rgba(161, 161, 161, .2);
 }
 
-.status {
+.statusBaru {
 	background-color: #f7ef02;
 	padding: 3px 12px;
+}
+
+.statusProses {
+	background-color: #1269DB;
+	padding: 3px 12px;
+	color: white;
 }
 
 .statusBayar {

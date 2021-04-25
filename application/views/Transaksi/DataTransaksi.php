@@ -8,7 +8,7 @@
                             <div class="card-title mt-4 ml-4" style="font-weight: bold;">Data Transaksi</div>
                         </div>
                         <div class="card-body">
-                            <a href="<?= site_url('Transaksi') ?>" class="btn btn-primary ml-1 mt-3 mb-5"> <i class="fas fa-arrow-alt-circle-left mr-2 fa-lg"></i>Kembali</a>
+                            <a href="<?= site_url('Transaksi') ?>" class="btn btn-primary ml-1 mt-3 mb-5"> <i class="fas fa-arrow-left mr-2 fa-lg"></i>Kembali</a>
 
                             <div class="table-responsive">
                                 <table class="table table-hover" width="100%">
@@ -36,7 +36,11 @@
                                                 <td><?= $value['nama_paket'] ?></td>
                                                 <td style="white-space: nowrap;"><?= date('d M Y', strtotime($value['tgl_selesai'])) ?></td>
                                                 <td><?= $value['nama_lengkap'] ?></td>
-                                                <td style="white-space: nowrap;"><span class="status"><?= $value['status'] ?></span></td>
+                                                <?php if ($value['status'] == 'Baru') { ?>
+                                                    <td style="white-space: nowrap;"><span class="statusBaru"><?= $value['status'] ?></span></td>
+                                                <?php } else if ($value['status'] == 'Proses') { ?>
+                                                    <td style="white-space: nowrap;"><span class="statusProses"><?= $value['status'] ?></span></td>
+                                                <?php } ?>
                                                 <td style="white-space: nowrap;"><span class="statusBayar"><?= $value['status_bayar'] ?></span></td>
                                                 <td><a href="javascript:void(0);" class="editStatus" data-toggle="modal" data-target="#editTransaksi" data-id_transaksi="<?= $value['id_transaksi'] ?>" data-paket="<?= $value['nama_paket'] ?>" data-berat="<?= $value['berat'] ?>" data-harga="<?= $value['harga'] ?>" data-status="<?= $value['status'] ?>" data-bayar="<?= $value['status_bayar'] ?>">
                                                         <i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i>
