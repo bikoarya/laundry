@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2021 at 06:38 PM
+-- Generation Time: Apr 25, 2021 at 04:42 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -60,7 +60,8 @@ CREATE TABLE `t_member` (
 
 INSERT INTO `t_member` (`id_member`, `nama`, `alamat`, `jenis_kelamin`, `tlp`) VALUES
 (20, 'Budi Setiawan', 'Jl. Diponegoro, Malang', 'Laki-laki', '081259464280'),
-(22, 'Rafa Athalah', 'Jl. Tanimbar, Malang', 'Laki-laki', '085385975175');
+(22, 'Rafa Athalah', 'Jl. Tanimbar, Malang', 'Laki-laki', '085385975175'),
+(36, 'Rudy Salim', 'Sawojajar, Malang', 'Laki-laki', '082859528532');
 
 -- --------------------------------------------------------
 
@@ -142,12 +143,19 @@ CREATE TABLE `t_transaksi` (
   `nama_lengkap` varchar(100) NOT NULL,
   `tanggal` date NOT NULL,
   `status` enum('Baru','Proses','Selesai','Diambil') NOT NULL,
-  `status_bayar` enum('Lunas','Belum lunas','','') NOT NULL,
-  `tgl_bayar` date NOT NULL,
+  `status_bayar` enum('Lunas','Belum bayar') NOT NULL,
   `tgl_selesai` date NOT NULL,
-  `diskon` double NOT NULL,
-  `pajak` bigint(20) NOT NULL
+  `diskon` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `t_transaksi`
+--
+
+INSERT INTO `t_transaksi` (`id_transaksi`, `kode_invoice`, `nama`, `nama_paket`, `berat`, `nama_outlet`, `nama_lengkap`, `tanggal`, `status`, `status_bayar`, `tgl_selesai`, `diskon`) VALUES
+(17, 'GL0001', 'Budi Setiawan', 'Bed Cover', 1, 'Go Laundry', 'Administrator', '2021-04-23', 'Baru', 'Belum bayar', '2021-04-25', 0),
+(18, 'GL0001', 'Budi Setiawan', 'Express kiloan', 4, 'Go Laundry', 'Administrator', '2021-04-23', 'Selesai', 'Belum bayar', '2021-04-26', 0),
+(19, 'GL0002', 'Budi Setiawan', 'Reguler kiloan', 3, 'Go Laundry', 'Administrator', '2021-04-25', 'Diambil', 'Lunas', '2021-04-27', 0);
 
 -- --------------------------------------------------------
 
@@ -234,7 +242,7 @@ ALTER TABLE `t_jenis`
 -- AUTO_INCREMENT for table `t_member`
 --
 ALTER TABLE `t_member`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `t_outlet`
@@ -258,7 +266,7 @@ ALTER TABLE `t_role`
 -- AUTO_INCREMENT for table `t_transaksi`
 --
 ALTER TABLE `t_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `t_user`
