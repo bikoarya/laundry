@@ -914,6 +914,67 @@ $("#editMember").click(function () {
 	});
 });
 
+// Update Status
+$("#updateStatus").click(function () {
+	$("#formUpdateStatus").validate({
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let id = $("#id_transaksi").val();
+			let status = $("#dStatus").val();
+			let bayar = $("#dBayar").val();
+
+			const swalWithBootstrapButtons = Swal.mixin({
+				customClass: {
+					confirmButton: 'btn btn-primary',
+					cancelButton: 'btn btn-light mr-3'
+				},
+				buttonsStyling: false
+			})
+
+			swalWithBootstrapButtons.fire({
+				title: 'Apakah Anda Yakin?',
+				text: "Mengubah Data",
+				icon: 'question',
+				showCancelButton: true,
+				confirmButtonText: 'Ya, Ubah',
+				cancelButtonText: 'Batal',
+				reverseButtons: true
+			}).then((result) => {
+				if (result.value) {
+
+					$.ajax({
+						type: "POST",
+						url: site_url + "Data/update",
+						data: {
+							id: id,
+							status: status,
+							bayar: bayar
+						},
+						success: function (data) {
+							$("#editTransaksi").modal("hide");
+							
+							Swal.fire({
+								title: 'Berhasil!',
+								text: 'Data berhasil diubah.',
+								icon: 'success'
+							}).then((result) => {
+								location.reload();
+							})
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
 // Hapus Outlet
 $("#dataOutlet").on('click', '.hapusOutlet', function () {
 	var id = $(this).data("id_outlet");

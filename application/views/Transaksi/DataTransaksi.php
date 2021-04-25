@@ -26,8 +26,23 @@
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>
-                                    <tbody id="historyTransaksi">
-
+                                    <tbody id="dataStatus">
+                                        <?php foreach ($transaksi as $row => $value) : ?>
+                                            <tr>
+                                                <td><?= ($row + 1) ?></td>
+                                                <td><?= $value['kode_invoice'] ?></td>
+                                                <td style="white-space: nowrap;"><?= date('d M Y', strtotime($value['tanggal'])) ?></td>
+                                                <td><?= $value['nama'] ?></td>
+                                                <td><?= $value['nama_paket'] ?></td>
+                                                <td style="white-space: nowrap;"><?= date('d M Y', strtotime($value['tgl_selesai'])) ?></td>
+                                                <td><?= $value['nama_lengkap'] ?></td>
+                                                <td style="white-space: nowrap;"><span class="status"><?= $value['status'] ?></span></td>
+                                                <td style="white-space: nowrap;"><span class="statusBayar"><?= $value['status_bayar'] ?></span></td>
+                                                <td><a href="javascript:void(0);" class="editStatus" data-toggle="modal" data-target="#editTransaksi" data-id_transaksi="<?= $value['id_transaksi'] ?>" data-paket="<?= $value['nama_paket'] ?>" data-berat="<?= $value['berat'] ?>" data-harga="<?= $value['harga'] ?>" data-status="<?= $value['status'] ?>" data-bayar="<?= $value['status_bayar'] ?>">
+                                                        <i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i>
+                                                    </a></td>
+                                            </tr>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -39,7 +54,7 @@
     </div>
 
     <!-- Modal Edit -->
-    <div class="modal fade" id="editTransaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editTransaksi" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="border: none;">
             <div class="modal-content">
                 <div class="modal-header" style="border-bottom: 0 none;">
@@ -49,7 +64,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formUpdateTransaksi">
+                    <form id="formUpdateStatus">
                         <div class="form-group">
                             <input type="hidden" name="id_transaksi" id="id_transaksi">
                             <label for="dNamaPaket">Nama Paket</label>
@@ -100,7 +115,7 @@
                 </div>
                 <div class="modal-footer" style="border-top: 0 none;">
                     <button type="button" class="btn btn-light mr-2" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary" id="simpanOutlet">Simpan</button>
+                    <button type="submit" class="btn btn-primary" id="updateStatus">Ubah</button>
                 </div>
                 </form>
             </div>
