@@ -23,6 +23,24 @@
 	color: white;
 }
 
+.bayarSuccess {
+	background-color: #50b300;
+	padding: 3px 12px;
+	color: white;
+}
+
+/* .statusAmbil {
+	background-color: #439400;
+	padding: 3px 12px;
+	color: white;
+} */
+
+.statusSelesai {
+	background-color: #50b300;
+	padding: 3px 12px;
+	color: white;
+}
+
 .statusBayar {
 	background-color: #e82c17;
 	color: white;

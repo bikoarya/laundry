@@ -39,7 +39,7 @@
                                 </table>
                             </div>
                             <div class="btn-simpan d-flex align-items-center justify-content-end mt-3 mb-3">
-                                <a href="<?= site_url('Transaksi/simpanTransaksi') ?>" class="btn btn-primary">Simpan</a>
+                                <a href="<?= site_url('Transaksi/simpanTransaksi') ?>" class="btn btn-primary st">Simpan</a>
                             </div>
                         </div>
                     </div>

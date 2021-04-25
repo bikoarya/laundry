@@ -11,16 +11,24 @@ class Transaksi extends CI_Controller
 
     public function index()
     {
-        $data['member'] = $this->model->get('t_member');
-        $join = [
-            't_jenis' => 't_paket.id_jenis=t_jenis.id_jenis'
-        ];
-        $data['paket'] = $this->model->joins('t_paket', $join, '')->result_array();
-        $data['title'] = 'Go-Laundry | Transaksi';
-        $this->load->view('Templates/Header', $data);
-        $this->load->view('Templates/Sidebar');
-        $this->load->view('Transaksi/Index');
-        $this->load->view('Templates/Footer');
+        if ($this->session->userdata('nama_lengkap') != null) {
+            if ($this->session->userdata('nama_role') == 'Admin' || $this->session->userdata('nama_role') == 'Kasir') {
+                $data['member'] = $this->model->get('t_member');
+                $join = [
+                    't_jenis' => 't_paket.id_jenis=t_jenis.id_jenis'
+                ];
+                $data['paket'] = $this->model->joins('t_paket', $join, '')->result_array();
+                $data['title'] = 'Go-Laundry | Transaksi';
+                $this->load->view('Templates/Header', $data);
+                $this->load->view('Templates/Sidebar');
+                $this->load->view('Transaksi/Index');
+                $this->load->view('Templates/Footer');
+            } else {
+                redirect('Notfound');
+            }
+        } else {
+            redirect('Notfound');
+        }
     }
 
     public function add($id)
