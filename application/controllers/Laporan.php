@@ -28,8 +28,18 @@ class Laporan extends CI_Controller
     {
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->SetTitle('Cetak Laporan');
-        $data = $this->load->view('Laporan/Cetak', [], TRUE);
+        $join = [
+            't_paket' => 't_transaksi.nama_paket=t_paket.nama_paket',
+            't_outlet' => 't_transaksi.nama_outlet=t_outlet.nama_outlet'
+        ];
+        $where = [
+            'status_bayar' => 'Lunas'
+        ];
+
+        $data['transaksi'] = $this->model->joins('t_transaksi', $join, $where)->result_array();
+        $data['outlet'] = $this->model->joinOrder('t_transaksi', $join, $where)->row_array();
+        $data = $this->load->view('Laporan/Cetak', $data, TRUE);
         $mpdf->WriteHTML($data);
-        $mpdf->Output();
+        $mpdf->Output('Laporan.pdf', 'I');
     }
 }

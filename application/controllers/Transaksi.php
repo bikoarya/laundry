@@ -102,8 +102,7 @@ class Transaksi extends CI_Controller
                     'tanggal' => date('Y-m-d', strtotime($items['tanggal'])),
                     'status' => 'Baru',
                     'status_bayar' => 'Belum bayar',
-                    'tgl_selesai' => date('Y-m-d', strtotime($items['tgl_selesai'])),
-                    'diskon' => 0
+                    'tgl_selesai' => date('Y-m-d', strtotime($items['tgl_selesai']))
                 ];
                 $insert = $this->db->insert('t_transaksi', $insert);
             }
