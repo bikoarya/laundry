@@ -77,6 +77,12 @@ class Models extends CI_Model
         $this->db->select('*');
         return $this->db->get('t_outlet')->num_rows();
     }
+    public function countAntri()
+    {
+        $this->db->select('*');
+        $this->db->where('status', 'Baru');
+        return $this->db->get('t_transaksi')->num_rows();
+    }
 
     public function kode_invoice()
     {
