@@ -53,7 +53,7 @@
                                                 <?php if ($value['status_bayar'] == 'Belum bayar') { ?>
                                                     <td style="white-space: nowrap;"><span class="statusBayar"><?= $value['status_bayar'] ?></span></td>
                                                 <?php } else { ?>
-                                                    <td style="white-space: nowrap;"><span class="bayarSuccess"><?= $value['status_bayar'] ?></span></td>
+                                                    <td style="white-space: nowrap;"><span class="bayarSuccess"><?= $value['status_bayar'] ?> <i class="fas fa-check"></i></span></td>
                                                 <?php } ?>
                                                 <td><a href="javascript:void(0);" class="editStatus" data-toggle="modal" data-target="#editTransaksi" data-id_transaksi="<?= $value['id_transaksi'] ?>" data-paket="<?= $value['nama_paket'] ?>" data-berat="<?= $value['berat'] ?>" data-harga="<?= $value['harga'] ?>" data-status="<?= $value['status'] ?>" data-bayar="<?= $value['status_bayar'] ?>">
                                                         <i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i>

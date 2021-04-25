@@ -24,7 +24,7 @@ class Laporan extends CI_Controller
         }
     }
 
-    public function cetak()
+    public function Cetak()
     {
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->SetTitle('Cetak Laporan');

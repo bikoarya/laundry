@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2021 at 04:42 PM
+-- Generation Time: Apr 25, 2021 at 07:54 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -153,9 +153,9 @@ CREATE TABLE `t_transaksi` (
 --
 
 INSERT INTO `t_transaksi` (`id_transaksi`, `kode_invoice`, `nama`, `nama_paket`, `berat`, `nama_outlet`, `nama_lengkap`, `tanggal`, `status`, `status_bayar`, `tgl_selesai`, `diskon`) VALUES
-(17, 'GL0001', 'Budi Setiawan', 'Bed Cover', 1, 'Go Laundry', 'Administrator', '2021-04-23', 'Baru', 'Belum bayar', '2021-04-25', 0),
-(18, 'GL0001', 'Budi Setiawan', 'Express kiloan', 4, 'Go Laundry', 'Administrator', '2021-04-23', 'Selesai', 'Belum bayar', '2021-04-26', 0),
-(19, 'GL0002', 'Budi Setiawan', 'Reguler kiloan', 3, 'Go Laundry', 'Administrator', '2021-04-25', 'Diambil', 'Lunas', '2021-04-27', 0);
+(24, 'GL0001', 'Budi Setiawan', 'Reguler kiloan', 4, 'Go Laundry', 'Go Kasir', '2021-04-26', 'Diambil', 'Lunas', '2021-04-28', 0),
+(25, 'GL0001', 'Budi Setiawan', 'Bed Cover', 1, 'Go Laundry', 'Go Kasir', '2021-04-26', 'Diambil', 'Lunas', '2021-04-28', 0),
+(26, 'GL0002', 'Rudy Salim', 'Express kiloan', 3, 'Go Laundry', 'Go Kasir', '2021-04-26', 'Proses', 'Belum bayar', '2021-04-27', 0);
 
 -- --------------------------------------------------------
 
@@ -266,7 +266,7 @@ ALTER TABLE `t_role`
 -- AUTO_INCREMENT for table `t_transaksi`
 --
 ALTER TABLE `t_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `t_user`
