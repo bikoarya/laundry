@@ -20,11 +20,9 @@
                                             <td>Nama Member</td>
                                             <td>Paket</td>
                                             <td>Tgl Selesai</td>
-                                            <!-- <td>Harga</td> -->
-                                            <!-- <td>Berat</td> -->
+                                            <td>Petugas</td>
                                             <td>Status</td>
                                             <td>Bayar</td>
-                                            <!-- <td>Total</td> -->
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>
@@ -36,6 +34,75 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="editTransaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="border: none;">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0 none;">
+                    <h3 class="modal-title mt-3" id="exampleModalLabel" style="font-weight: bold;">Ubah Status</h3>
+                    <button type="button" class="close mt-1 mr-2" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formUpdateTransaksi">
+                        <div class="form-group">
+                            <input type="hidden" name="id_transaksi" id="id_transaksi">
+                            <label for="dNamaPaket">Nama Paket</label>
+                            <input type="text" class="form-control" name="dNamaPaket" id="dNamaPaket" placeholder="Nama paket" readonly autocomplete="off" style="font-weight: bolder; color: black">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-5">
+                                    <label for="dBerat">Berat / Qty</label>
+                                    <input type="text" class="form-control" name="dBerat" id="dBerat" placeholder="Berat" readonly autocomplete="off" style="font-weight: bolder; color: black">
+                                </div>
+                                <div class="col-7">
+                                    <label for="dHarga">Harga</label>
+                                    <input type="text" readonly class="form-control" name="dHarga" id="dHarga" placeholder="Harga" autocomplete="off" value="" style="font-weight: bold; color: black">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dTotal">Biaya Total</label>
+                            <input type="text" class="form-control" name="dTotal" id="dTotal" placeholder="Total" readonly autocomplete="off" style="font-weight: bolder; color: black">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="dStatus">Status</label>
+                                        <select class="form-control dStatus" data-size="5" name="dStatus" id="dStatus" style="width: 100%;" autocomplete="off">
+                                            <option value=""></option>
+                                            <?php foreach ($status as $stat) : ?>
+                                                <option value="<?= $stat ?>"><?= $stat; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="dBayar">Status</label>
+                                        <select class="form-control dBayar" data-size="5" name="dBayar" id="dBayar" style="width: 100%;" autocomplete="off">
+                                            <option value=""></option>
+                                            <?php foreach ($bayar as $byr) : ?>
+                                                <option value="<?= $byr ?>"><?= $byr; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer" style="border-top: 0 none;">
+                    <button type="button" class="btn btn-light mr-2" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="simpanOutlet">Simpan</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>

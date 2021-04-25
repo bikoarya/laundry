@@ -443,6 +443,25 @@ $("#simpanTransaksi").click(function () {
 	});
 });
 
+// Kirim value status
+$(document).on('click', '.editStatus', function () {
+	const id = $(this).data('id_transaksi');
+	const paket = $(this).data('paket');
+	const berat = $(this).data('berat');
+	const harga = $(this).data('harga');
+	const status = $(this).data('status');
+	const bayar = $(this).data('bayar');
+	const total = berat*harga;
+
+	$("#id_transaksi").val(id);
+	$("#dNamaPaket").val(paket);
+	$("#dBerat").val(berat);
+	$("#dStatus").val(status).trigger("change");
+	$("#dBayar").val(bayar).trigger("change");
+	$("#dHarga").val('Rp. ' + harga);
+	$("#dTotal").val('Rp. ' + total);
+});
+
 // Kirim Value Edit Outlet
 $(document).on('click', '.editOutlet', function () {
 	var id = $(this).data('id_outlet');
@@ -925,6 +944,49 @@ $("#dataOutlet").on('click', '.hapusOutlet', function () {
 				},
 				success: function (data) {
 					$("#dataOutlet").load(site_url + "Outlet/showData");
+
+					Swal.fire(
+						'Berhasil!',
+						'Data berhasil dihapus.',
+						'success'
+					)
+				}
+			});
+		}
+	});
+});
+
+// Hapus Cart
+$("#dataTransaksi").on('click', '.deleteCart', function () {
+	var id = $(this).data("id_cart");
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-primary',
+			cancelButton: 'btn btn-light mr-3'
+		},
+		buttonsStyling: false
+	})
+
+	swalWithBootstrapButtons.fire({
+		title: 'Apakah Anda Yakin?',
+		text: "Menghapus Data",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Ya, Hapus',
+		cancelButtonText: 'Batal',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.value) {
+
+			$.ajax({
+				type: "POST",
+				url: site_url + "Transaksi/delete",
+				data: {
+					id: id
+				},
+				success: function (data) {
+					$("#dataTransaksi").load(site_url + "Transaksi/load");
+					$("#grandTotal").load(site_url + "Transaksi/grandTotal");
 
 					Swal.fire(
 						'Berhasil!',

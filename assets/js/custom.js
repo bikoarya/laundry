@@ -73,6 +73,18 @@ $('.tPaket').select2({
 	theme: 'bootstrap4'
 });
 
+$('.dStatus').select2({
+	placeholder: "Pilih Status",
+	allowClear: true,
+	theme: 'bootstrap4'
+});
+
+$('.dBayar').select2({
+	placeholder: "Pilih Pembayaran",
+	allowClear: true,
+	theme: 'bootstrap4'
+});
+
 $("#tglSelesai").datepicker({
 	dateFormat: "yy-mm-dd",
 	autoclose: true

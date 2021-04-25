@@ -73,25 +73,35 @@ class Transaksi extends CI_Controller
 
     public function simpanTransaksi()
     {
-        foreach ($this->cart->contents() as $items) {
+        $check = count($this->cart->contents());
 
-            $insert = [
-                'kode_invoice' => $items['kode_invoice'],
-                'nama' => $items['nama'],
-                'nama_paket' => $items['name'],
-                'berat' => $items['qty'],
-                'nama_outlet' => $items['nama_outlet'],
-                'nama_lengkap' => $items['nama_lengkap'],
-                'tanggal' => date('Y-m-d', strtotime($items['tanggal'])),
-                'status' => 'Baru',
-                'status_bayar' => 'Belum bayar',
-                'tgl_selesai' => date('Y-m-d', strtotime($items['tgl_selesai'])),
-                'diskon' => 0
-            ];
-            $insert = $this->db->insert('t_transaksi', $insert);
+        if ($check == 0) {
+            $message = "Data masih kosong!";
+            echo "<script type='text/javascript'>
+            alert('$message');
+            window.location = '/laundry/Transaksi';
+            </script>";
+        } else {
+            foreach ($this->cart->contents() as $items) {
+
+                $insert = [
+                    'kode_invoice' => $items['kode_invoice'],
+                    'nama' => $items['nama'],
+                    'nama_paket' => $items['name'],
+                    'berat' => $items['qty'],
+                    'nama_outlet' => $items['nama_outlet'],
+                    'nama_lengkap' => $items['nama_lengkap'],
+                    'tanggal' => date('Y-m-d', strtotime($items['tanggal'])),
+                    'status' => 'Baru',
+                    'status_bayar' => 'Belum bayar',
+                    'tgl_selesai' => date('Y-m-d', strtotime($items['tgl_selesai'])),
+                    'diskon' => 0
+                ];
+                $insert = $this->db->insert('t_transaksi', $insert);
+            }
+            $this->cart->destroy();
+            redirect('Data');
         }
-        $this->cart->destroy();
-        redirect('Transaksi');
     }
 
     function load()
@@ -127,5 +137,15 @@ class Transaksi extends CI_Controller
     public function grandTotal()
     {
         echo 'Rp. ' . number_format($this->cart->total(), 0, ',', '.');
+    }
+
+    public function delete()
+    {
+        $data = [
+            'rowid' => $this->input->post('id'),
+            'qty' => 0,
+        ];
+        $this->cart->update($data);
+        echo $this->show_cart();
     }
 }

@@ -45,6 +45,23 @@ class Models extends CI_Model
         return $data;
     }
 
+    function joinOrder($table = null,  $join = null, $where = null)
+    {
+        if ($join != null) {
+            foreach ($join as $keyj => $valuej) {
+                $this->db->join($keyj, $valuej);
+            }
+        }
+        if ($where != null) {
+            foreach ($where as $keyw => $dataw) {
+                $this->db->where($keyw, $dataw);
+            }
+        }
+        $this->db->order_by('id_transaksi', 'DESC');
+        $data = $this->db->get($table);
+        return $data;
+    }
+
     public function countPaket()
     {
         $this->db->select('*');
