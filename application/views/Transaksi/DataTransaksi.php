@@ -41,8 +41,13 @@
                                                 <?php } else if ($value['status'] == 'Proses') { ?>
                                                     <td style="white-space: nowrap;"><span class="statusProses"><?= $value['status'] ?></span></td>
                                                 <?php } else if ($value['status'] == 'Selesai') { ?>
-                                                    <td style="white-space: nowrap;"><span class="statusProses"><?= $value['status'] ?></span></td>
+                                                    <td style="white-space: nowrap;"><span class="statusSelesai"><?= $value['status'] ?></span></td>
+                                                <?php } else if ($value['status'] == 'Diambil' && $value['status_bayar'] == 'Lunas') { ?>
+                                                    <td style="white-space: nowrap;"><span class="statusSelesai"><?= $value['status'] ?> <i class="fas fa-check"></i></span></td>
                                                 <?php } else { ?>
+                                                    <script>
+                                                        alert('Bayar dulu');
+                                                    </script>;
                                                     <td style="white-space: nowrap;"><span class="statusSelesai"><?= $value['status'] ?> <i class="fas fa-check"></i></span></td>
                                                 <?php } ?>
                                                 <?php if ($value['status_bayar'] == 'Belum bayar') { ?>

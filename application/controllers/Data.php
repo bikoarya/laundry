@@ -38,9 +38,10 @@ class Data extends CI_Controller
             'status'        => $status,
             'status_bayar'  => $bayar
         ];
-        $asd = $this->model->put('t_transaksi', $data, $where);
-        var_dump($data);
-        die;
+        if ($status == 'Diambil' && $bayar == 'Belum bayar') {
+        } else {
+            $this->model->put('t_transaksi', $data, $where);
+        }
     }
 
     // public function showData()

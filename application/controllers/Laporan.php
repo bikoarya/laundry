@@ -23,4 +23,13 @@ class Laporan extends CI_Controller
             redirect('Notfound');
         }
     }
+
+    public function cetak()
+    {
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->SetTitle('Cetak Laporan');
+        $data = $this->load->view('Laporan/Cetak', [], TRUE);
+        $mpdf->WriteHTML($data);
+        $mpdf->Output();
+    }
 }
