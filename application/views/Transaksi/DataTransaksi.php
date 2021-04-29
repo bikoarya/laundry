@@ -8,7 +8,9 @@
                             <div class="card-title mt-4 ml-4" style="font-weight: bold;">Data Transaksi</div>
                         </div>
                         <div class="card-body">
-                            <a href="<?= site_url('Transaksi') ?>" class="btn btn-primary ml-1 mt-3 mb-5"> <i class="fas fa-arrow-left mr-2 fa-lg"></i>Kembali</a>
+                            <?php if ($this->session->userdata('nama_role') != 'Admin') { ?>
+                                <a href="<?= site_url('Transaksi') ?>" class="btn btn-primary ml-1 mt-3 mb-5"> <i class="fas fa-arrow-left mr-2 fa-lg"></i>Kembali</a>
+                            <?php } ?>
 
                             <div class="table-responsive">
                                 <table class="table table-hover" width="100%">
@@ -23,7 +25,9 @@
                                             <td>Petugas</td>
                                             <td>Status</td>
                                             <td>Bayar</td>
-                                            <td>Aksi</td>
+                                            <?php if ($this->session->userdata('nama_role') != 'Admin') { ?>
+                                                <td>Aksi</td>
+                                            <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody id="dataStatus">
@@ -55,9 +59,14 @@
                                                 <?php } else { ?>
                                                     <td style="white-space: nowrap;"><span class="bayarSuccess"><?= $value['status_bayar'] ?> <i class="fas fa-check"></i></span></td>
                                                 <?php } ?>
-                                                <td><a href="javascript:void(0);" class="editStatus" data-toggle="modal" data-target="#editTransaksi" data-id_transaksi="<?= $value['id_transaksi'] ?>" data-paket="<?= $value['nama_paket'] ?>" data-berat="<?= $value['berat'] ?>" data-harga="<?= $value['harga'] ?>" data-status="<?= $value['status'] ?>" data-bayar="<?= $value['status_bayar'] ?>">
-                                                        <i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i>
-                                                    </a></td>
+                                                <?php if ($this->session->userdata('nama_role') != 'Admin') { ?>
+                                                    <?php if ($value['status_bayar'] == 'Lunas' && $value['status'] == 'Diambil') { ?>
+                                                    <?php } else { ?>
+                                                        <td><a href="javascript:void(0);" class="editStatus" data-toggle="modal" data-target="#editTransaksi" data-id_transaksi="<?= $value['id_transaksi'] ?>" data-paket="<?= $value['nama_paket'] ?>" data-berat="<?= $value['berat'] ?>" data-harga="<?= $value['harga'] ?>" data-status="<?= $value['status'] ?>" data-bayar="<?= $value['status_bayar'] ?>">
+                                                                <i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i>
+                                                            </a></td>
+                                                    <?php } ?>
+                                                <?php } ?>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>

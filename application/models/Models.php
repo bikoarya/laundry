@@ -80,7 +80,11 @@ class Models extends CI_Model
     public function countAntri()
     {
         $this->db->select('*');
-        $this->db->where('status', 'Baru');
+        $where = [
+            'status' => 'Baru',
+            'nama_outlet' => $this->session->userdata('nama_outlet')
+        ];
+        $this->db->where($where);
         return $this->db->get('t_transaksi')->num_rows();
     }
 

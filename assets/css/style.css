@@ -13,18 +13,19 @@
 }
 
 .statusBaru {
-	background-color: #f7ef02;
+	background-color: #FF9C00;
 	padding: 3px 12px;
+	color: white;
 }
 
 .statusProses {
-	background-color: #1269DB;
+	background-color: #3D84C2;
 	padding: 3px 12px;
 	color: white;
 }
 
 .bayarSuccess {
-	background-color: #50b300;
+	background-color: #02B552;
 	padding: 3px 12px;
 	color: white;
 }
@@ -36,7 +37,7 @@
 } */
 
 .statusSelesai {
-	background-color: #50b300;
+	background-color: #02B552;
 	padding: 3px 12px;
 	color: white;
 }

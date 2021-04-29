@@ -12,15 +12,15 @@ class Login extends CI_Controller
             'required' => 'Masukkan Password anda!'
         ]);
 
-        if ($this->form_validation->run() == false) {
-            if ($this->session->userdata('nama_lengkap') == null) {
+        if ($this->session->userdata('nama_lengkap') == null) {
+            if ($this->form_validation->run() == false) {
                 $data['title'] = 'GO-Laundry | Login';
                 $this->load->view('Login/Index', $data);
             } else {
-                redirect('Notfound');
+                $this->_Login();
             }
         } else {
-            $this->_Login();
+            redirect('Dashboard');
         }
     }
 
@@ -46,7 +46,8 @@ class Login extends CI_Controller
                     'nama_lengkap' => $user['nama_lengkap'],
                     'username' => $user['username'],
                     'nama_role' => $user['nama_role'],
-                    'nama_outlet' => $user['nama_outlet']
+                    'nama_outlet' => $user['nama_outlet'],
+                    'id_outlet' => $user['id_outlet']
                 ];
                 $this->session->set_userdata($data);
                 redirect('Dashboard');

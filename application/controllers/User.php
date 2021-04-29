@@ -48,17 +48,20 @@ class User extends CI_Controller
         ];
         $query = $this->model->joins('t_user', $join, '')->result_array();
         $output = '';
+        $no = 1;
 
         foreach ($query as $row => $value) {
-            $output .= '
+            if ($value['nama_role'] != 'Admin') {
+                $output .= '
 				<tr>
-				<td>' . ($row + 1) . '</td>
+				<td>' . $no++ . '</td>
 				<td>' . $value['nama_lengkap'] . '</td>
 				<td>' . $value['username'] . '</td>
 				<td>' . $value['nama_outlet'] . '</td>
 				<td>' . $value['nama_role'] . '</td>
 				<td> <a href="javascript:void(0);" class="text-success editUser" data-id_user="' . $value['id_user'] . '" data-nama_lengkap="' . $value['nama_lengkap'] . '" data-username="' . $value['username'] . '" data-password="' . $value['password'] . '" data-outlet="' . $value['id_outlet'] . '" data-role="' . $value['nama_role'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusUser" data-id_user="' . $value['id_user'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
 				</tr>';
+            }
         }
 
         return $output;

@@ -109,14 +109,20 @@
                                             <input type="number" class="form-control" name="tQty" id="tQty" placeholder="Qty" autocomplete="off" min="1">
                                         </div>
                                         <div class="col-7">
-                                            <label for="tHarga">Harga</label>
-                                            <input type="text" readonly class="form-control" name="tHarga" id="tHarga" placeholder="Harga" autocomplete="off" style="font-weight: bold; color: black">
+                                            <label for="tHarga">Total</label>
+                                            <input type="hidden" name="tiHarga">
+                                            <input type="text" readonly class="form-control" name="tHarga" id="tHarga" placeholder="Total" autocomplete="off" style="font-weight: bold; color: black">
+                                            <p class="text-danger mt-1" id="pajak">*pajak 10%</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="tglSelesai">Tgl Selesai</label>
                                     <input type="text" class="form-control" data-date-format="dd M yyyy" name="tglSelesai" id="tglSelesai" autocomplete="off" placeholder="Tanggal selesai">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tKeterangan">Keterangan</label>
+                                    <textarea class="form-control" name="tKeterangan" id="tKeterangan" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>

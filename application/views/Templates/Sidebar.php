@@ -4,7 +4,7 @@
         <div class="logo-header" data-background-color="blue">
 
             <a href="<?= site_url('Dashboard') ?>" class="logo">
-                <h4 class="text-white" style="margin-top: 18px; font-weight: bold; font-size: 22px; letter-spacing: 1px;">GO-Laundry</h4>
+                <h4 class="text-white" style="margin-top: 18px; font-weight: bold; font-size: 22px; letter-spacing: 1px;"><?= $this->session->userdata('nama_outlet') ?></h4>
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">

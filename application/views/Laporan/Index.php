@@ -8,7 +8,8 @@
                             <div class="card-title mt-4 ml-4" style="font-weight: bold;">Data Transaksi</div>
                         </div>
                         <div class="card-body">
-                            <a href="<?= site_url('Laporan/Cetak') ?>" class="btn btn-primary ml-1 mt-3 mb-5"> <i class="fas fa-print mr-2 fa-lg"></i>Cetak Laporan</a>
+                            <a href="<?= site_url('Laporan/Cetak') ?>" class="btn btn-primary ml-1 mt-3 mb-5"> <i class="fas fa-print mr-2 fa-lg"></i>Laporan semua</a>
+                            <a href="<?= site_url('Laporan/Bulanan') ?>" class="btn btn-secondary ml-1 mt-3 mb-5"> <i class="fas fa-print mr-2 fa-lg"></i>Laporan bulanan</a>
 
                             <div class="table-responsive">
                                 <table class="table table-hover" width="100%">

@@ -357,10 +357,12 @@ $("#simpanTransaksi").click(function () {
                 required: true
             },
             tBerat: {
-                required: true
+                required: true,
+				minlength: 1
             },
 			tQty: {
-				required: true
+				required: true,
+				minlength: 1
 			},
 			tglSelesai: {
 				required: true
@@ -374,10 +376,12 @@ $("#simpanTransaksi").click(function () {
                 required: "Masukkan nama paket."
             },
             tBerat: {
-                required: "Masukkan berat (kg)."
+                required: "Masukkan berat (kg).",
+				minlength: "Masukkan minimal 1."
             },
 			tQty: {
-				required: "Masukkan qty."
+				required: "Masukkan qty.",
+				minlength: "Masukkan minimal 1."
 			},
 			tglSelesai: {
 				required: "Masukkan tanggal."

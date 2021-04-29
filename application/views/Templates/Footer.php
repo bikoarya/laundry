@@ -58,7 +58,26 @@
 
 <!-- Main JS -->
 <script src="<?= base_url('assets/js/custom.js') ?>"></script>
+<script>
+    $(document).ready(function() {
+        $("#tQty").keyup(function() {
+            const harga = $("[name=tiHarga]").val();
+            const qty = $("#tQty").val();
+            const price = harga.replace(".", "");
 
+            const total = parseInt(price || 0) * parseInt(qty || 0);
+            $("#tHarga").val(total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+        });
+        $("#tBerat").keyup(function() {
+            const harga = $("[name=tiHarga]").val();
+            const qty = $("#tBerat").val();
+            const price = harga.replace(".", "");
+
+            const total = parseInt(price || 0) * parseInt(qty || 0);
+            $("#tHarga").val(total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+        });
+    });
+</script>
 
 </body>
 

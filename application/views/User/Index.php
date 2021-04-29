@@ -72,7 +72,9 @@
                             <select class="form-control role" name="txtRole" id="txtRole" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
                                 <?php foreach ($role as $rol) : ?>
-                                    <option value="<?= $rol['nama_role'] ?>"><?= $rol['nama_role']; ?></option>
+                                    <?php if ($rol['nama_role'] != 'Admin') { ?>
+                                        <option value="<?= $rol['nama_role'] ?>"><?= $rol['nama_role']; ?></option>
+                                    <?php } ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>

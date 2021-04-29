@@ -90,31 +90,29 @@ $("#tglSelesai").datepicker({
 	autoclose: true
 });
 
-// $("#txtJenisPaket").change(function () {
-// 	if ($(this).val() == "newPaket") {
-// 		$("#txtJenisPaket").html("");
-// 		$('#addPaket').modal('hide');
-// 		$('#modalPaket').modal('show');
-// 	}
-// });
-
 $("#berat").hide();
 $("#qty").hide();
+$("#pajak").hide();
 $("#tNamaPaket").change(function () {
 	const option = $('option:selected', this).attr('harga');
 	const jenis = $('option:selected', this).attr('jenis');
-
+	// Format Rupiah
+	// .toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
 	if (jenis == 'Kiloan') {
 		$("#qty").hide();
 		$("#berat").show();
 		if (option) {
-			$("#tHarga").val("Rp. " + option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+			const value = option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+			$(`[name="tiHarga"]`).val(value);
+			$("#tHarga").val(value);
 		}
 	}else {
 		$("#berat").hide();
 		$("#qty").show();
 		if (option) {
-			$("#tHarga").val("Rp. " + option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+			const value = option.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+			$(`[name="tiHarga"]`).val(value);
+			$("#tHarga").val(value);
 		}
 	}
 });
