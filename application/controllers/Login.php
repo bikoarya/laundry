@@ -47,7 +47,9 @@ class Login extends CI_Controller
                     'username' => $user['username'],
                     'nama_role' => $user['nama_role'],
                     'nama_outlet' => $user['nama_outlet'],
-                    'id_outlet' => $user['id_outlet']
+                    'id_outlet' => $user['id_outlet'],
+                    'alamat' => $user['alamat'],
+                    'tlp' => $user['tlp']
                 ];
                 $this->session->set_userdata($data);
                 redirect('Dashboard');

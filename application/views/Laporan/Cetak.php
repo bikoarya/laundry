@@ -17,8 +17,8 @@
 <body>
     <h4 style="font-family: 'Roboto', sans-serif; position: relative; font-weight: 700; font-size: 20px; margin-left: 600px; margin-bottom: 0; margin-top: 20px;">Laporan</h4>
     <h3 class="go-laundry" style="font-family: 'Roboto', sans-serif; color: #1269DB; font-size: 30px;margin-top: -20px; margin-bottom: 0; margin-top: -35px;"><?= $this->session->userdata('nama_outlet'); ?></h3>
-    <h4 style="font-family: 'Roboto', sans-serif; font-weight: lighter; position: relative; margin-top: 5px; font-size: 14px; margin-left: 4px; margin-bottom: 0;"><?= $outlet['alamat'] ?></h4>
-    <h4 style="font-family: 'Roboto', sans-serif; font-weight: lighter; position: relative; margin-top: 8px; font-size: 14px; margin-left: 2px;">Tlp. <?= $outlet['tlp'] ?></h4>
+    <h4 style="font-family: 'Roboto', sans-serif; font-weight: lighter; position: relative; margin-top: 5px; font-size: 14px; margin-left: 4px; margin-bottom: 0;"><?= $this->session->userdata('alamat'); ?></h4>
+    <h4 style="font-family: 'Roboto', sans-serif; font-weight: lighter; position: relative; margin-top: 8px; font-size: 14px; margin-left: 2px;">Tlp. <?= $this->session->userdata('tlp'); ?></h4>
     <div class="content">
         <table width="100%" style="font-family: 'Roboto', sans-serif; margin-top: 30px; border-collapse: collapse;">
             <tr>

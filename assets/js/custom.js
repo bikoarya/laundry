@@ -1,3 +1,7 @@
+window.setTimeout(function () {
+	$(".alertBulanan").alert('close');
+}, 3000);
+
 $.fn.inputFilter = function(inputFilter) {
     return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
       if (inputFilter(this.value)) {
@@ -96,8 +100,6 @@ $("#pajak").hide();
 $("#tNamaPaket").change(function () {
 	const option = $('option:selected', this).attr('harga');
 	const jenis = $('option:selected', this).attr('jenis');
-	// Format Rupiah
-	// .toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
 	if (jenis == 'Kiloan') {
 		$("#qty").hide();
 		$("#berat").show();

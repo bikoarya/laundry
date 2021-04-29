@@ -139,6 +139,34 @@ $("#simpanPaket").click(function () {
 	});
 });
 
+// Cari Bulanan
+$("#cariBulanan").click(function () {
+	$("#formBulanan").validate({
+		rules: {
+			txtBulan: {
+				required: true
+			}
+		},
+		messages: {
+			txtBulan: {
+				required: "Masukkan nama bulan."
+			}
+		},
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let bulan = $("#txtBulan").val();
+			document.location.href = 'Laporan/Bulanan/' + bulan;
+		}
+	});
+});
+
 // Tambah Jenis
 $("#simpanJenis").click(function () {
 	$("#formJenis").validate({
