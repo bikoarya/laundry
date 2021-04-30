@@ -65,11 +65,19 @@ class Models extends CI_Model
     public function countPaket()
     {
         $this->db->select('*');
+        $where = [
+            'id_outlet' => $this->session->userdata('id_outlet')
+        ];
+        $this->db->where($where);
         return $this->db->get('t_paket')->num_rows();
     }
     public function countMember()
     {
         $this->db->select('*');
+        $where = [
+            'id_outlet' => $this->session->userdata('id_outlet')
+        ];
+        $this->db->where($where);
         return $this->db->get('t_member')->num_rows();
     }
     public function countOutlet()

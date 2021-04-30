@@ -24,9 +24,10 @@ class Member extends CI_Controller
     {
         $data = [
             'nama' => htmlspecialchars($this->input->post('nama')),
-            'alamat' => htmlspecialchars($this->input->post('alamat')),
+            'id_outlet' => $this->session->userdata('id_outlet'),
+            'alamat_member' => htmlspecialchars($this->input->post('alamat')),
             'jenis_kelamin' => htmlspecialchars($this->input->post('gender')),
-            'tlp' => htmlspecialchars($this->input->post('tlp'))
+            'tlp_member' => htmlspecialchars($this->input->post('tlp'))
         ];
 
         $this->db->insert('t_member', $data);
@@ -39,7 +40,13 @@ class Member extends CI_Controller
     }
     public function data()
     {
-        $query = $this->model->get('t_member');
+        $join = [
+            't_outlet' => 't_member.id_outlet=t_outlet.id_outlet'
+        ];
+        $where = [
+            't_member.id_outlet' => $this->session->userdata('id_outlet')
+        ];
+        $query = $this->model->joins('t_member', $join, $where)->result_array();
         $output = '';
 
         foreach ($query as $row => $value) {
@@ -47,9 +54,9 @@ class Member extends CI_Controller
 				<tr>
 				<td>' . ($row + 1) . '</td>
 				<td>' . $value['nama'] . '</td>
-				<td>' . $value['alamat'] . '</td>
+				<td>' . $value['alamat_member'] . '</td>
 				<td>' . $value['jenis_kelamin'] . '</td>
-				<td>' . $value['tlp'] . '</td>
+				<td>' . $value['tlp_member'] . '</td>
 				<td> <a href="javascript:void(0);" class="text-success editMember" data-id_member="' . $value['id_member'] . '" data-nama="' . $value['nama'] . '" data-alamat="' . $value['alamat'] . '" data-gender="' . $value['jenis_kelamin'] . '" data-tlp="' . $value['tlp'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editMember"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusMember" data-id_member="' . $value['id_member'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
 				</tr>';
         }
@@ -68,10 +75,10 @@ class Member extends CI_Controller
         $where = ['id_member' => $id];
 
         $data = [
-            'nama'          => $nama,
-            'alamat'        => $alamat,
-            'jenis_kelamin' => $gender,
-            'tlp'           => $tlp
+            'nama'              => $nama,
+            'alamat_member'     => $alamat,
+            'jenis_kelamin'     => $gender,
+            'tlp_member'        => $tlp
         ];
         $this->model->put('t_member', $data, $where);
     }

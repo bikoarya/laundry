@@ -63,7 +63,9 @@
                             <select class="form-control outletUser" name="txtOutletUser" id="txtOutletUser" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
                                 <?php foreach ($outlet as $ot) : ?>
-                                    <option value="<?= $ot['id_outlet'] ?>"><?= $ot['nama_outlet']; ?></option>
+                                    <?php if ($ot['nama_outlet'] != 'Outlet Pusat') { ?>
+                                        <option value="<?= $ot['id_outlet'] ?>"><?= $ot['nama_outlet']; ?></option>
+                                    <?php } ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -122,7 +124,9 @@
                             <select class="form-control editOutletUser" name="editOutletUser" id="editOutletUser" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
                                 <?php foreach ($outlet as $ot) : ?>
-                                    <option value="<?= $ot['id_outlet'] ?>"><?= $ot['nama_outlet']; ?></option>
+                                    <?php if ($ot['nama_outlet'] != 'Outlet Pusat') { ?>
+                                        <option value="<?= $ot['id_outlet'] ?>"><?= $ot['nama_outlet']; ?></option>
+                                    <?php } ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -131,7 +135,9 @@
                             <select class="form-control editRole" name="editRole" id="editRole" style="width: 100%;" autocomplete="off">
                                 <option value=""></option>
                                 <?php foreach ($role as $rol) : ?>
-                                    <option value="<?= $rol['nama_role'] ?>"><?= $rol['nama_role']; ?></option>
+                                    <?php if ($rol['nama_role'] != 'Admin') { ?>
+                                        <option value="<?= $rol['nama_role'] ?>"><?= $rol['nama_role']; ?></option>
+                                    <?php } ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>

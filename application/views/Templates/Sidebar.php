@@ -4,7 +4,7 @@
         <div class="logo-header" data-background-color="blue">
 
             <a href="<?= site_url('Dashboard') ?>" class="logo">
-                <h4 class="text-white" style="margin-top: 18px; font-weight: bold; font-size: 22px; letter-spacing: 1px;"><?= $this->session->userdata('nama_outlet') ?></h4>
+                <h4 class="text-white" style="margin-top: 16px; font-weight: bold; font-size: 22px; letter-spacing: 1px;"><?= $this->session->userdata('nama_outlet') ?></h4>
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
@@ -79,6 +79,14 @@
                             <a href="<?= site_url('Paket') ?>">
                                 <i class="fas fa-th-list"></i>
                                 <p>Paket</p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($sess == 'Admin') { ?>
+                        <li class="nav-item">
+                            <a href="<?= site_url('Diskon') ?>">
+                                <i class="fas fa-percent"></i>
+                                <p>Diskon</p>
                             </a>
                         </li>
                     <?php } ?>

@@ -78,6 +78,10 @@
                                     <label for="tOutlet">Outlet</label>
                                     <input type="text" class="form-control" name="tOutlet" id="tOutlet" placeholder="Outlet" autocomplete="off" readonly value="<?= $this->session->userdata('nama_outlet'); ?>" style="font-weight: bold; color: black">
                                 </div>
+                                <div class="form-group">
+                                    <label for="tKeterangan" class="text-danger">Keterangan</label>
+                                    <textarea class="form-control" name="tKeterangan" id="tKeterangan" rows="2"></textarea>
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
@@ -110,7 +114,7 @@
                                         </div>
                                         <div class="col-7">
                                             <label for="tHarga">Total</label>
-                                            <input type="hidden" name="tiHarga">
+                                            <input type="hidden" name="tiHarga" id="tiHarga">
                                             <input type="text" readonly class="form-control" name="tHarga" id="tHarga" placeholder="Total" autocomplete="off" style="font-weight: bold; color: black">
                                             <p class="text-danger mt-1" id="pajak">*pajak 10%</p>
                                         </div>
@@ -121,8 +125,13 @@
                                     <input type="text" class="form-control" data-date-format="dd M yyyy" name="tglSelesai" id="tglSelesai" autocomplete="off" placeholder="Tanggal selesai">
                                 </div>
                                 <div class="form-group">
-                                    <label for="tKeterangan">Keterangan</label>
-                                    <textarea class="form-control" name="tKeterangan" id="tKeterangan" rows="2"></textarea>
+                                    <label for="tNamaPaket">Diskon</label>
+                                    <select class="form-control tDiskon" name="tDiskon" id="tDiskon" style="width: 100%;" autocomplete="off">
+                                        <option value=""></option>
+                                        <?php foreach ($paket as $pkt) : ?>
+                                            <option harga="<?= $pkt['harga'] ?>" jenis="<?= $pkt['jenis'] ?>" value="<?= $pkt['nama_paket'] ?>"><?= $pkt['nama_paket']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,10 @@ $.fn.inputFilter = function(inputFilter) {
     });
   }
 
+  $(document).ready( function () {
+    $('#tabelTransaksi').DataTable();
+  });
+
 $('.jenisPaket').select2({
 	placeholder: "Pilih Jenis",
 	allowClear: true,

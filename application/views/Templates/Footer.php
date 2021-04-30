@@ -68,6 +68,16 @@
             const total = parseInt(price || 0) * parseInt(qty || 0);
             $("#tHarga").val(total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
         });
+        $("#tQty").keyup(function() {
+            const harga = $("#tHarga").val();
+            const price = harga.replace(".", "");
+
+            if (price > 20000) {
+                $("#pajak").show();
+            } else {
+                $("#pajak").hide();
+            }
+        });
         $("#tBerat").keyup(function() {
             const harga = $("[name=tiHarga]").val();
             const qty = $("#tBerat").val();
@@ -80,7 +90,7 @@
             const harga = $("#tHarga").val();
             const price = harga.replace(".", "");
 
-            if (price > 10000) {
+            if (price > 20000) {
                 $("#pajak").show();
             } else {
                 $("#pajak").hide();

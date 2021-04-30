@@ -15,14 +15,10 @@
                     <div class="card full-height">
                         <div class="card-body">
                             <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-                                <?php if ($this->session->userdata('nama_role') == 'Admin') {
-                                    # code...
-                                } else { ?>
-                                    <div class="px-2 pb-2 pb-md-0 text-center">
-                                        <h6 class="fw-bold mb--5 h2 mt-2">Antrian</h6>
-                                        <h1 class="fw-bold mb-0 mt--2" style="font-size: 56px;"><?= $this->model->countAntri(); ?></h1>
-                                    </div>
-                                <?php } ?>
+                                <div class="px-2 pb-2 pb-md-0 text-center">
+                                    <h6 class="fw-bold mb--5 h2 mt-2">Antrian</h6>
+                                    <h1 class="fw-bold mb-0 mt--2" style="font-size: 56px;"><?= $this->model->countAntri(); ?></h1>
+                                </div>
                                 <div class="px-2 pb-2 pb-md-0 text-center">
                                     <!-- <i class="fas fa-th-list fa-2x"></i> -->
                                     <h6 class="fw-bold mb--5 h2 mt-2">Paket</h6>

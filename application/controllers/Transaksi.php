@@ -12,10 +12,11 @@ class Transaksi extends CI_Controller
     public function index()
     {
         if ($this->session->userdata('nama_lengkap') != null) {
-            if ($this->session->userdata('nama_role') == 'Admin') {
-                redirect('Data');
-            } else if ($this->session->userdata('nama_role') == 'Kasir') {
-                $data['member'] = $this->model->get('t_member');
+            if ($this->session->userdata('nama_role') == 'Kasir' || $this->session->userdata('nama_role') == 'Admin') {
+                $whereMember = [
+                    'id_outlet' => $this->session->userdata('id_outlet')
+                ];
+                $data['member'] = $this->db->get_where('t_member', $whereMember)->result_array();
                 $join = [
                     't_jenis' => 't_paket.id_jenis=t_jenis.id_jenis'
                 ];
@@ -44,7 +45,7 @@ class Transaksi extends CI_Controller
         $paket          = htmlspecialchars($this->input->post('paket'));
         $berat          = htmlspecialchars($this->input->post('berat'));
         $qty            = htmlspecialchars($this->input->post('qty'));
-        $harga1         = htmlspecialchars($this->input->post('harga'));
+        $harga1         = htmlspecialchars($this->input->post('price'));
         $harga2         = str_replace("Rp. ", "", $harga1);
         $harga          = str_replace(".", "", $harga2);
         $tglSelesai     = htmlspecialchars($this->input->post('tglSelesai'));

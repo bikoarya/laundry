@@ -42,7 +42,7 @@ class Laporan extends CI_Controller
         $mpdf->Output('Laporan.pdf', 'I');
     }
 
-    public function Bulanan($bulan)
+    public function Bulan($bulan)
     {
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->SetTitle('Cetak Laporan');
@@ -51,7 +51,7 @@ class Laporan extends CI_Controller
         $data['transaksi'] = $this->db->query("SELECT * FROM t_transaksi t JOIN t_paket p ON t.nama_paket=p.nama_paket WHERE DATE_FORMAT(tanggal, '%Y-%m') = '$bulan' AND status_bayar = 'Lunas' AND nama_outlet = '$outlet'")->result_array();
 
         if (count($data['transaksi']) == 0) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show w-25 mt-2 alertBulanan" id="alert" role="alert" style="position: absolute; box-shadow: 0 5px 10px rgba(119, 108, 108, .1); margin-left: 340px; border: 1px solid red; border-radius: 3px">
+            $this->session->set_flashdata('message', '<div class="alert alert-dismissible fade show w-25 mt-2 alertBulanan" id="alert" role="alert" style="position: absolute; box-shadow: 0 5px 10px rgba(119, 108, 108, .1); margin-left: 340px; border-radius: 3px">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-top: -12px; margin-right: 5px">
                 <span aria-hidden="true">&times;</span>
                 </button>

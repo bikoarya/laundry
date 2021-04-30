@@ -10,10 +10,10 @@
                         <div class="card-body">
                             <?= $this->session->flashdata('message'); ?>
                             <a href="<?= site_url('Laporan/Cetak') ?>" class="btn btn-primary ml-1 mt-3 mb-5"> <i class="fas fa-print mr-2 fa-lg"></i>Laporan</a>
-                            <button class="btn btn-warning ml-1 mt-3 mb-5" data-toggle="modal" data-target="#laporanBulanan"> <i class="fas fa-print mr-2 fa-lg"></i>Laporan Bulanan</button>
+                            <button class="btn btn-info ml-1 mt-3 mb-5" data-toggle="modal" data-target="#laporanBulanan"> <i class="fas fa-print mr-2 fa-lg"></i>Laporan Bulanan</button>
 
                             <div class="table-responsive">
-                                <table class="table table-hover" width="100%">
+                                <table class="table table-hover" width="100%" id="tabelTransaksi">
                                     <thead>
                                         <tr>
                                             <td>No</td>

@@ -162,7 +162,7 @@ $("#cariBulanan").click(function () {
 		},
 		submitHandler: function (form) {
 			let bulan = $("#txtBulan").val();
-			document.location.href = 'Laporan/Bulanan/' + bulan;
+			document.location.href = 'Laporan/Bulan/' + bulan;
 		}
 	});
 });
@@ -434,6 +434,7 @@ $("#simpanTransaksi").click(function () {
 			let berat = $("#tBerat").val();
 			let qty = $("#tQty").val();
 			let harga = $("#tHarga").val();
+			let price = $("#tiHarga").val();
 			let tglSelesai = $("#tglSelesai").val();
 
 			$.ajax({
@@ -450,6 +451,7 @@ $("#simpanTransaksi").click(function () {
 					berat: berat,
 					qty:qty,
 					harga: harga,
+					price: price,
 					tglSelesai: tglSelesai
 				},
 				success: function (data) {
