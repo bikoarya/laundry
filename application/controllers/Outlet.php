@@ -7,7 +7,7 @@ class Outlet extends CI_Controller
     {
         if ($this->session->userdata('nama_lengkap') != null) {
             if ($this->session->userdata('nama_role') == 'Admin') {
-                $data['title'] = 'Go-Laundry | Outlet';
+                $data['title'] = $this->session->userdata('nama_outlet') . ' | Outlet';
                 $this->load->view('Templates/Header', $data);
                 $this->load->view('Templates/Sidebar');
                 $this->load->view('Outlet/Index');

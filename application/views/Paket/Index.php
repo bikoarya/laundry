@@ -11,7 +11,7 @@
                             <button class="btn btn-primary ml-1 mt-3 mb-5" data-toggle="modal" data-target="#addPaket"> <i class="fas fa-plus mr-2 fa-lg"></i>Tambah Paket</button>
 
                             <div class="table-responsive">
-                                <table class="table table-hover" width="100%">
+                                <table class="table table-hover" width="100%" id="tabelPaket">
                                     <thead>
                                         <tr>
                                             <td>No</td>

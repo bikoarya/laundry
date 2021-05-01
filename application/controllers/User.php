@@ -9,7 +9,7 @@ class User extends CI_Controller
             if ($this->session->userdata('nama_role') == 'Admin') {
                 $data['outlet'] = $this->model->get('t_outlet');
                 $data['role'] = $this->model->get('t_role');
-                $data['title'] = 'Go-Laundry | User';
+                $data['title'] = $this->session->userdata('nama_outlet') . ' | User';
                 $this->load->view('Templates/Header', $data);
                 $this->load->view('Templates/Sidebar');
                 $this->load->view('User/Index');

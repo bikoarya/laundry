@@ -16,7 +16,7 @@ class Data extends CI_Controller
             $data['transaksi'] = $this->model->joinOrder('t_transaksi', $join, $where)->result_array();
             $data['status'] = ['Baru', 'Proses', 'Selesai', 'Diambil'];
             $data['bayar'] = ['Belum bayar', 'Lunas'];
-            $data['title'] = 'Go-Laundry | Data Transaksi';
+            $data['title'] = $this->session->userdata('nama_outlet') . ' | Data Transaksi';
             $this->load->view('Templates/Header', $data);
             $this->load->view('Templates/Sidebar');
             $this->load->view('Transaksi/DataTransaksi');

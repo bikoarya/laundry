@@ -7,7 +7,7 @@ class Member extends CI_Controller
     {
         if ($this->session->userdata('nama_lengkap') != null) {
             if ($this->session->userdata('nama_role') == 'Admin' || $this->session->userdata('nama_role') == 'Kasir') {
-                $data['title'] = 'Go-Laundry | Member';
+                $data['title'] = $this->session->userdata('nama_outlet') . ' | Member';
                 $this->load->view('Templates/Header', $data);
                 $this->load->view('Templates/Sidebar');
                 $this->load->view('Member/Index');

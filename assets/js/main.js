@@ -167,6 +167,55 @@ $("#cariBulanan").click(function () {
 	});
 });
 
+// Tambah Diskon
+$("#dataDiskon").load(site_url + "Diskon/showData");
+$("#simpanDiskon").click(function () {
+	$("#formDiskon").validate({
+		rules: {
+			diskon: {
+				required: true,
+				number: true
+			}
+		},
+		messages: {
+			diskon: {
+				required: "Masukkan jumlah diskon.",
+				number: "Masukkan angka."
+			}
+		},
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let diskon = $("#diskon").val();
+
+			$.ajax({
+				url: site_url + "Diskon/insert",
+				type: "POST",
+				data: {
+					diskon: diskon
+				},
+				success: function (data) {
+					$("#diskon").val("");
+					$("#dataDiskon").html(data);
+					$("#addDiskon").modal("hide");
+
+					Swal.fire(
+						'Berhasil!',
+						'Data berhasil ditambahkan.',
+						'success'
+					)
+				}
+			});
+		}
+	});
+});
+
 // Tambah Jenis
 $("#simpanJenis").click(function () {
 	$("#formJenis").validate({
@@ -496,6 +545,15 @@ $(document).on('click', '.editStatus', function () {
 	$("#dTotal").val('Rp. ' + total);
 });
 
+// Kirim value edit diskon
+$(document).on('click', '.editDiskon', function () {
+	const id = $(this).data('id_diskon');
+	const diskon = $(this).data('jumlah_diskon');
+
+	$("#id_diskon").val(id);
+	$("#txtDiskon").val(diskon);
+});
+
 // Kirim Value Edit Outlet
 $(document).on('click', '.editOutlet', function () {
 	var id = $(this).data('id_outlet');
@@ -628,6 +686,76 @@ $("#editOutlet").click(function () {
 						success: function (data) {
 							$("#dataOutlet").load(site_url + "Outlet/showData");
 							$("#editOutlet").modal("hide");
+
+							Swal.fire(
+								'Berhasil!',
+								'Data berhasil diubah.',
+								'success'
+							)
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
+// Update Diskon
+$("#editDiskon").click(function () {
+	$("#formEditDiskon").validate({
+		rules: {
+			txtDiskon: {
+				required: true,
+				number: true
+			}
+		},
+		messages: {
+			txtDiskon: {
+				required: "Masukkan jumlah diskon.",
+				number: "Masukkan angka."
+			}
+		},
+		errorElement: "span",
+		errorPlacement: function (error, element) {
+			error.addClass("invalid-feedback");
+			element.closest(".form-group").append(error);
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass("is-invalid");
+		},
+		submitHandler: function (form) {
+			let id = $("#id_diskon").val();
+			let diskon = $("#txtDiskon").val();
+
+			const swalWithBootstrapButtons = Swal.mixin({
+				customClass: {
+					confirmButton: 'btn btn-primary',
+					cancelButton: 'btn btn-light mr-3'
+				},
+				buttonsStyling: false
+			})
+
+			swalWithBootstrapButtons.fire({
+				title: 'Apakah Anda Yakin?',
+				text: "Mengubah Data",
+				icon: 'question',
+				showCancelButton: true,
+				confirmButtonText: 'Ya, Ubah',
+				cancelButtonText: 'Batal',
+				reverseButtons: true
+			}).then((result) => {
+				if (result.value) {
+
+					$.ajax({
+						type: "POST",
+						url: site_url + "Diskon/update",
+						data: {
+							id: id,
+							diskon: diskon
+						},
+						success: function (data) {
+							$("#dataDiskon").load(site_url + "Diskon/showData");
+							$("#editDiskon").modal("hide");
 
 							Swal.fire(
 								'Berhasil!',
@@ -1039,6 +1167,48 @@ $("#dataOutlet").on('click', '.hapusOutlet', function () {
 				},
 				success: function (data) {
 					$("#dataOutlet").load(site_url + "Outlet/showData");
+
+					Swal.fire(
+						'Berhasil!',
+						'Data berhasil dihapus.',
+						'success'
+					)
+				}
+			});
+		}
+	});
+});
+
+// Hapus Diskon
+$("#dataDiskon").on('click', '.hapusDiskon', function () {
+	var id = $(this).data("id_diskon");
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-primary',
+			cancelButton: 'btn btn-light mr-3'
+		},
+		buttonsStyling: false
+	})
+
+	swalWithBootstrapButtons.fire({
+		title: 'Apakah Anda Yakin?',
+		text: "Menghapus Data",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Ya, Hapus',
+		cancelButtonText: 'Batal',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.value) {
+
+			$.ajax({
+				type: "POST",
+				url: site_url + "Diskon/delete",
+				data: {
+					id: id
+				},
+				success: function (data) {
+					$("#dataDiskon").load(site_url + "Diskon/showData");
 
 					Swal.fire(
 						'Berhasil!',

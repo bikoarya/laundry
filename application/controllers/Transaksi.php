@@ -24,7 +24,8 @@ class Transaksi extends CI_Controller
                     'id_outlet' => $this->session->userdata('id_outlet')
                 ];
                 $data['paket'] = $this->model->joins('t_paket', $join, $where)->result_array();
-                $data['title'] = 'Go-Laundry | Transaksi';
+                $data['diskon'] = $this->model->get('t_diskon');
+                $data['title'] = $this->session->userdata('nama_outlet') . ' | Transaksi';
                 $this->load->view('Templates/Header', $data);
                 $this->load->view('Templates/Sidebar');
                 $this->load->view('Transaksi/Index');

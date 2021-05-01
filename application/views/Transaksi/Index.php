@@ -23,7 +23,7 @@
                                             <td>Tanggal Selesai</td>
                                             <td>Harga</td>
                                             <td>Berat</td>
-                                            <td>Sub Total</td>
+                                            <td>Total</td>
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>
@@ -128,8 +128,8 @@
                                     <label for="tNamaPaket">Diskon</label>
                                     <select class="form-control tDiskon" name="tDiskon" id="tDiskon" style="width: 100%;" autocomplete="off">
                                         <option value=""></option>
-                                        <?php foreach ($paket as $pkt) : ?>
-                                            <option harga="<?= $pkt['harga'] ?>" jenis="<?= $pkt['jenis'] ?>" value="<?= $pkt['nama_paket'] ?>"><?= $pkt['nama_paket']; ?></option>
+                                        <?php foreach ($diskon as $disc) : ?>
+                                            <option value="<?= $disc['id_diskon'] ?>"><?= $disc['jumlah_diskon']; ?> %</option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

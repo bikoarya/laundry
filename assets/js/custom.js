@@ -17,6 +17,26 @@ $.fn.inputFilter = function(inputFilter) {
     });
   }
 
+  $('#tabelPaket').DataTable({
+
+	"processing": true, //Feature control the processing indicator.
+	"serverSide": true, //Feature control DataTables' server-side processing mode.
+	"order": [], //Initial no order.
+
+	// Load data for the table's content from an Ajax source
+	"ajax": {
+		"url": site_url + "Paket/ajaxList",
+		"type": "POST"
+	},
+
+	//Set column definition initialisation properties.
+	"columnDefs": [{
+		"targets": [0], //first column / numbering column
+		"orderable": false, //set not orderable
+	}, ],
+
+});
+
   $(document).ready( function () {
     $('#tabelTransaksi').DataTable();
   });
@@ -77,6 +97,12 @@ $('.tMember').select2({
 
 $('.tPaket').select2({
 	placeholder: "Pilih Paket",
+	allowClear: true,
+	theme: 'bootstrap4'
+});
+
+$('.tDiskon').select2({
+	placeholder: "Pilih Diskon",
 	allowClear: true,
 	theme: 'bootstrap4'
 });

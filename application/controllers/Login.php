@@ -14,7 +14,7 @@ class Login extends CI_Controller
 
         if ($this->session->userdata('nama_lengkap') == null) {
             if ($this->form_validation->run() == false) {
-                $data['title'] = 'GO-Laundry | Login';
+                $data['title'] = 'Login';
                 $this->load->view('Login/Index', $data);
             } else {
                 $this->_Login();

@@ -9,7 +9,7 @@ class Paket extends CI_Controller
             if ($this->session->userdata('nama_role') == 'Admin') {
                 $data['jenis'] = $this->model->get('t_jenis');
                 $data['outlet'] = $this->model->get('t_outlet');
-                $data['title'] = 'Go-Laundry | Paket';
+                $data['title'] = $this->session->userdata('nama_outlet') . ' | Paket';
                 $this->load->view('Templates/Header', $data);
                 $this->load->view('Templates/Sidebar');
                 $this->load->view('Paket/Index');
@@ -63,14 +63,14 @@ class Paket extends CI_Controller
 
         foreach ($query as $row => $value) {
             $output .= '
-				<tr>
-				<td>' . ($row + 1) . '</td>
-				<td>' . $value['nama_paket'] . '</td>
-				<td>' . $value['jenis'] . '</td>
-				<td>Rp. ' . number_format($value['harga']) . '</td>
-				<td>' . $value['nama_outlet'] . '</td>
-				<td> <a href="javascript:void(0);" class="text-success editPaket" data-id_paket="' . $value['id_paket'] . '" data-nama_paket="' . $value['nama_paket'] . '" data-jenis="' . $value['id_jenis'] . '" data-harga="' . $value['harga'] . '" data-outlet="' . $value['id_outlet'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editPaket"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusPaket" data-id_paket="' . $value['id_paket'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
-				</tr>';
+        		<tr>
+        		<td>' . ($row + 1) . '</td>
+        		<td>' . $value['nama_paket'] . '</td>
+        		<td>' . $value['jenis'] . '</td>
+        		<td>Rp. ' . number_format($value['harga']) . '</td>
+        		<td>' . $value['nama_outlet'] . '</td>
+        		<td> <a href="javascript:void(0);" class="text-success editPaket" data-id_paket="' . $value['id_paket'] . '" data-nama_paket="' . $value['nama_paket'] . '" data-jenis="' . $value['id_jenis'] . '" data-harga="' . $value['harga'] . '" data-outlet="' . $value['id_outlet'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editPaket"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusPaket" data-id_paket="' . $value['id_paket'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
+        		</tr>';
         }
 
         return $output;
@@ -102,5 +102,34 @@ class Paket extends CI_Controller
     {
         $id = $this->input->post('id');
         $this->model->delete('t_paket', ['id_paket' => $id]);
+    }
+
+    public function ajaxList()
+    {
+        $list = $this->model->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $paket) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $paket->nama_paket;
+            $row[] = $paket->jenis;
+            $row[] = number_format($paket->harga);
+            $row[] = $paket->nama_outlet;
+            $row[] = '<a href="javascript:void(0)"><p class="text-primary d-inline mr-4 editPaket" data-id_paket="' . $paket->id_paket . '" data-nama_paket="' . $paket->nama_paket . '" data-jenis="' . $paket->id_jenis . '" data-harga="' . $paket->harga . '" data-outlet="' . $paket->id_outlet . '" data-toggle="modal" data-target="#editPaket"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> 
+			<a href="javascript:void(0);" class="text-danger hapusPaket" data-id_kuitansi="' . $paket->id_paket . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a>';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->model->count_all(),
+            "recordsFiltered" => $this->model->count_filtered(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
     }
 }

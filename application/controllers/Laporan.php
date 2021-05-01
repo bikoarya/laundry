@@ -14,7 +14,7 @@ class Laporan extends CI_Controller
             ];
 
             $data['transaksi'] = $this->model->joinOrder('t_transaksi', $join, $where)->result_array();
-            $data['title'] = 'Go-Laundry | Laporan';
+            $data['title'] = $this->session->userdata('nama_outlet') . ' | Laporan';
             $this->load->view('Templates/Header', $data);
             $this->load->view('Templates/Sidebar');
             $this->load->view('Laporan/Index');
