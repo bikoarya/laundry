@@ -431,7 +431,7 @@ function loadGrandTotal() {
 				grandTotal+=total
 			}
 		})
-		$("#grandTotal").text(`Rp.${grandTotal.toLocaleString().replace(/\,/g,'.')}`)
+		$("#grandTotal").text(`Rp. ${grandTotal.toLocaleString().replace(/\,/g,'.')}`)
 	},1000)
 }
 
@@ -562,6 +562,7 @@ $(document).on('click', '.editStatus', function () {
 	const diskon = $(this).data('diskon');
 	const total = berat*harga;
 	const grandTotal = (total - (diskon == '-' ? 0 : diskon / 100 * total)) * 1.1;
+	const all = Math.round(grandTotal);
 
 	$("#id_transaksi").val(id);
 	$("#dNamaPaket").val(paket);
@@ -571,7 +572,7 @@ $(document).on('click', '.editStatus', function () {
 	$("#dStatus").val(status).trigger("change");
 	$("#dBayar").val(bayar).trigger("change");
 	$("#dHarga").val('Rp. ' + harga);
-	$("#dTotal").val('Rp. ' + grandTotal.toFixed());
+	$("#dTotal").val('Rp. ' + all);
 });
 
 // Kirim value edit diskon

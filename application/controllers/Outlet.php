@@ -79,4 +79,32 @@ class Outlet extends CI_Controller
         $id = htmlspecialchars($this->input->post('id'));
         $this->model->delete('t_outlet', ['id_outlet' => $id]);
     }
+
+    public function ajaxList()
+    {
+        $list = $this->model->get_datatables_outlet();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $outlet) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $outlet->nama_outlet;
+            $row[] = $outlet->alamat;
+            $row[] = $outlet->tlp;
+            $row[] = '<a href="javascript:void(0)"><p class="text-primary d-inline mr-4 editOutlet" data-id_outlet="' . $outlet->id_outlet . '" data-nama="' . $outlet->nama_outlet . '" data-alamat="' . $outlet->alamat . '" data-tlp="' . $outlet->tlp . '" data-toggle="modal" data-target="#editOutlet"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> 
+			<a href="javascript:void(0);" class="text-danger hapusOutlet" data-id_outlet="' . $outlet->id_outlet . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a>';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->model->count_all_outlet(),
+            "recordsFiltered" => $this->model->count_filtered_outlet(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
 }

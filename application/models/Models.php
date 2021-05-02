@@ -9,15 +9,204 @@ class Models extends CI_Model
     var $order = array('id_paket' => 'asc'); // default order
 
     var $table_member = 't_member';
-    var $column_order_member = array(null, 'id_outlet', 'nama', 'alamat_member', 'jenis_kelamin', 'tlp_member'); //set column field database for datatable orderable
+    var $column_order_member = array(null, 'nama', 'alamat_member', 'jenis_kelamin', 'tlp_member'); //set column field database for datatable orderable
     var $column_search_member = array('nama', 'alamat_member', 'jenis_kelamin', 'tlp_member'); //set column field database for datatable searchable 
     var $order_member = array('id_member' => 'asc'); // default order
 
+    var $table_diskon = 't_diskon';
+    var $column_order_diskon = array(null, 'jumlah_diskon'); //set column field database for datatable orderable
+    var $column_search_diskon = array('jumlah_diskon'); //set column field database for datatable searchable 
+    var $order_diskon = array('id_diskon' => 'asc'); // default order
+
+    var $table_outlet = 't_outlet';
+    var $column_order_outlet = array(null, 'nama_outlet', 'alamat', 'tlp'); //set column field database for datatable orderable
+    var $column_search_outlet = array('nama_outlet', 'alamat', 'tlp'); //set column field database for datatable searchable 
+    var $order_outlet = array('id_outlet' => 'asc'); // default order
+
+    var $table_user = 't_user';
+    var $column_order_user = array(null, 'nama_lengkap', 'username', 'id_outlet', 'nama_role'); //set column field database for datatable orderable
+    var $column_search_user = array('nama_lengkap', 'username', 'nama_outlet', 'nama_role'); //set column field database for datatable searchable 
+    var $order_user = array('id_user' => 'asc'); // default order
+
+    private function _get_datatables_query_user()
+    {
+        $this->db->select('*');
+        $this->db->from('t_user');
+        $this->db->join('t_outlet', 't_user.id_outlet = t_outlet.id_outlet');
+
+        $i = 0;
+
+        foreach ($this->column_search_user as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_user) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_user[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_user)) {
+            $order = $this->order_user;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_user()
+    {
+        $this->_get_datatables_query_user();
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_user()
+    {
+        $this->_get_datatables_query_user();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_user()
+    {
+        $this->db->from($this->table_user);
+        return $this->db->count_all_results();
+    }
+
+    private function _get_datatables_query_outlet()
+    {
+        $this->db->select('*');
+        $this->db->from('t_outlet');
+
+        $i = 0;
+
+        foreach ($this->column_search_outlet as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_outlet) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_outlet[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_outlet)) {
+            $order = $this->order_outlet;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_outlet()
+    {
+        $this->_get_datatables_query_outlet();
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_outlet()
+    {
+        $this->_get_datatables_query_outlet();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_outlet()
+    {
+        $this->db->from($this->table_outlet);
+        return $this->db->count_all_results();
+    }
+
+    private function _get_datatables_query_diskon()
+    {
+        $this->db->select('*');
+        $this->db->from('t_diskon');
+
+        $i = 0;
+
+        foreach ($this->column_search_diskon as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_diskon) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_diskon[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_diskon)) {
+            $order = $this->order_diskon;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_diskon()
+    {
+        $this->_get_datatables_query_diskon();
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_diskon()
+    {
+        $this->_get_datatables_query_diskon();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_diskon()
+    {
+        $this->db->from($this->table_diskon);
+        return $this->db->count_all_results();
+    }
+
     private function _get_datatables_query_member()
     {
+        $id = $this->session->userdata('id_outlet');
         $this->db->select('*');
         $this->db->from('t_member');
         $this->db->join('t_outlet', 't_member.id_outlet = t_outlet.id_outlet');
+        $this->db->where('t_member.id_outlet', $id);
 
         $i = 0;
 

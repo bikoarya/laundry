@@ -55,6 +55,7 @@
                                                     <td style="white-space: nowrap;"><span class="bayarSuccess"><?= $value['status_bayar'] ?> <i class="fas fa-check"></i></span></td>
                                                 <?php } ?>
                                                 <?php if ($value['status_bayar'] == 'Lunas' && $value['status'] == 'Diambil') { ?>
+                                                    <td>-</td>
                                                 <?php } else { ?>
                                                     <td><a href="javascript:void(0);" class="editStatus" data-toggle="modal" data-target="#editTransaksi" data-id_transaksi="<?= $value['id_transaksi'] ?>" data-paket="<?= $value['nama_paket'] ?>" data-berat="<?= $value['berat'] ?>" data-diskon="<?= $value['jumlah_diskon'] ?>" data-harga="<?= $value['harga'] ?>" data-status="<?= $value['status'] ?>" data-keterangan="<?= $value['keterangan'] ?>" data-bayar="<?= $value['status_bayar'] ?>">
                                                             <i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i>
@@ -123,7 +124,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="dKeterangan">Keterangan</label>
-                                    <textarea class="form-control" readonly name="dKeterangan" id="dKeterangan" rows="2" style="font-weight: bolder; color: black"></textarea>
+                                    <textarea class="form-control" readonly name="dKeterangan" id="dKeterangan" rows="2"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="dStatus">Status</label>

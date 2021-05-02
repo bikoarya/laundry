@@ -62,4 +62,30 @@ class Diskon extends CI_Controller
         $id = htmlspecialchars($this->input->post('id'));
         $this->model->delete('t_diskon', ['id_diskon' => $id]);
     }
+
+    public function ajaxList()
+    {
+        $list = $this->model->get_datatables_diskon();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $diskon) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $diskon->jumlah_diskon;
+            $row[] = '<a href="javascript:void(0)"><p class="text-primary d-inline mr-4 editDiskon" data-id_diskon="' . $diskon->id_diskon . '" data-jumlah_diskon="' . $diskon->jumlah_diskon . '" data-toggle="modal" data-target="#editDiskon"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> 
+			<a href="javascript:void(0);" class="text-danger hapusDiskon" data-id_diskon="' . $diskon->id_diskon . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a>';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->model->count_all_diskon(),
+            "recordsFiltered" => $this->model->count_filtered_diskon(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
 }

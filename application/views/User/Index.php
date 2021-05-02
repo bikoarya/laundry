@@ -11,7 +11,7 @@
                             <button class="btn btn-primary ml-1 mt-3 mb-5" data-toggle="modal" data-target="#addUser"> <i class="fas fa-plus mr-2 fa-lg"></i>Tambah User</button>
 
                             <div class="table-responsive">
-                                <table class="table table-hover" width="100%">
+                                <table class="table table-hover" width="100%" id="tabelUser">
                                     <thead>
                                         <tr>
                                             <td>No</td>

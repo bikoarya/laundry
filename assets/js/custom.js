@@ -17,6 +17,26 @@ $.fn.inputFilter = function(inputFilter) {
     });
   }
 
+  $('#tabelUser').DataTable({
+
+	"processing": true, //Feature control the processing indicator.
+	"serverSide": true, //Feature control DataTables' server-side processing mode.
+	"order": [], //Initial no order.
+
+	// Load data for the table's content from an Ajax source
+	"ajax": {
+		"url": site_url + "User/ajaxList",
+		"type": "POST"
+	},
+
+	//Set column definition initialisation properties.
+	"columnDefs": [{
+		"targets": [0], //first column / numbering column
+		"orderable": false, //set not orderable
+	}, ],
+
+});
+
   $('#tabelMember').DataTable({
 
 	"processing": true, //Feature control the processing indicator.
@@ -26,6 +46,46 @@ $.fn.inputFilter = function(inputFilter) {
 	// Load data for the table's content from an Ajax source
 	"ajax": {
 		"url": site_url + "Member/ajaxList",
+		"type": "POST"
+	},
+
+	//Set column definition initialisation properties.
+	"columnDefs": [{
+		"targets": [0], //first column / numbering column
+		"orderable": false, //set not orderable
+	}, ],
+
+});
+
+$('#tabelOutlet').DataTable({
+
+	"processing": true, //Feature control the processing indicator.
+	"serverSide": true, //Feature control DataTables' server-side processing mode.
+	"order": [], //Initial no order.
+
+	// Load data for the table's content from an Ajax source
+	"ajax": {
+		"url": site_url + "Outlet/ajaxList",
+		"type": "POST"
+	},
+
+	//Set column definition initialisation properties.
+	"columnDefs": [{
+		"targets": [0], //first column / numbering column
+		"orderable": false, //set not orderable
+	}, ],
+
+});
+
+$('#tabelDiskon').DataTable({
+
+	"processing": true, //Feature control the processing indicator.
+	"serverSide": true, //Feature control DataTables' server-side processing mode.
+	"order": [], //Initial no order.
+
+	// Load data for the table's content from an Ajax source
+	"ajax": {
+		"url": site_url + "Diskon/ajaxList",
 		"type": "POST"
 	},
 
