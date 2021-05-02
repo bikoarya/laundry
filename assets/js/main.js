@@ -422,6 +422,21 @@ $("#simpanMember").click(function () {
 $("#grandTotal").load(site_url + "Transaksi/grandTotal");
 $("#historyTransaksi").load(site_url + "Data/showData");
 
+function loadGrandTotal() {
+	setTimeout(()=>{
+		let grandTotal=0
+		$('tbody#dataTransaksi > tr').each((idx,el)=>{
+			let total=$(el).find('[data-total]').data('total')
+			if (total) {
+				grandTotal+=total
+			}
+		})
+		$("#grandTotal").text(`Rp.${grandTotal.toLocaleString().replace(/\,/g,'.')}`)
+	},1000)
+}
+
+loadGrandTotal()
+
 // Tambah Transaksi
 $("#dataTransaksi").load(site_url + "Transaksi/load");
 $("#simpanTransaksi").click(function () {
@@ -473,11 +488,13 @@ $("#simpanTransaksi").click(function () {
 			$(element).removeClass("is-invalid");
 		},
 		submitHandler: function (form) {
-			let invoice = $("#txtKodeInvoice").val();
+					let invoice = $("#txtKodeInvoice").val();
 			let id = $("#cart").val();
 			let tgl = $("#tglTerima").val();
 			let user = $("#tPetugas").val();
 			let outlet = $("#tOutlet").val();
+			let keterangan = $("#tKeterangan").val();
+			let diskon = $("#tDiskon").val();
 			let member = $("#tNamaMember").val();
 			let paket = $("#tNamaPaket").val();
 			let berat = $("#tBerat").val();
@@ -490,23 +507,28 @@ $("#simpanTransaksi").click(function () {
 				url: site_url + "Transaksi/add/" +uuid.v4(),
 				type: "POST",
 				data: {
-					invoice: invoice,
-					id: id,
-                    tgl: tgl,
-                    user: user,
-					outlet: outlet,
-					member: member,
-					paket: paket,
-					berat: berat,
-					qty:qty,
-					harga: harga,
-					price: price,
-					tglSelesai: tglSelesai
+					invoice,
+					id,
+                    tgl,
+					diskon,
+					keterangan,
+                    user,
+					outlet,
+					member,
+					paket,
+					berat,
+					qty,
+					harga,
+					price,
+					tglSelesai
 				},
 				success: function (data) {
-					$("#grandTotal").load(site_url + "Transaksi/grandTotal");
-					$("#tNamaMember").val("");
-					$("#tNamaPaket").val("");
+					// $("#grandTotal").load(site_url + "Transaksi/grandTotal");
+loadGrandTotal()
+$("#tNamaMember").val(null).trigger('change');
+					$("#tKeterangan").val("");
+					$("#tDiskon").val("");
+					$("#tNamaPaket").val(null).trigger('change');
 					$("#tBerat").val("");
 					$("#tQty").val("");
 					$("#berat").hide();
@@ -520,6 +542,8 @@ $("#simpanTransaksi").click(function () {
 						'Data berhasil ditambahkan.',
 						'success'
 					)
+
+
 				}
 			});
 		}
@@ -534,15 +558,20 @@ $(document).on('click', '.editStatus', function () {
 	const harga = $(this).data('harga');
 	const status = $(this).data('status');
 	const bayar = $(this).data('bayar');
+	const keterangan = $(this).data('keterangan');
+	const diskon = $(this).data('diskon');
 	const total = berat*harga;
+	const grandTotal = (total - (diskon == '-' ? 0 : diskon / 100 * total)) * 1.1;
 
 	$("#id_transaksi").val(id);
 	$("#dNamaPaket").val(paket);
+	$("#dDiskon").val(diskon + " %");
+	$("#dKeterangan").val(keterangan);
 	$("#dBerat").val(berat);
 	$("#dStatus").val(status).trigger("change");
 	$("#dBayar").val(bayar).trigger("change");
 	$("#dHarga").val('Rp. ' + harga);
-	$("#dTotal").val('Rp. ' + total);
+	$("#dTotal").val('Rp. ' + grandTotal.toFixed());
 });
 
 // Kirim value edit diskon

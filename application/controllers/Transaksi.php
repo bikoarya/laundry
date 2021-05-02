@@ -50,38 +50,26 @@ class Transaksi extends CI_Controller
         $harga2         = str_replace("Rp. ", "", $harga1);
         $harga          = str_replace(".", "", $harga2);
         $tglSelesai     = htmlspecialchars($this->input->post('tglSelesai'));
+        $diskon         = htmlspecialchars($this->input->post('diskon'));
+        $keterangan     = htmlspecialchars($this->input->post('keterangan'));
 
-        if ($berat != null) {
-            $cart = [
-                'id'                => $id,
-                'name'              => $paket,
-                'price'             => $harga,
-                'kode_invoice'      => $invoice,
-                'qty'               => $berat,
-                'nama'              => $member,
-                'tanggal'           => $tgl,
-                'nama_lengkap'      => $user,
-                'nama_outlet'       => $outlet,
-                'tgl_selesai'       => $tglSelesai,
-            ];
-            $this->cart->insert($cart);
-            echo $this->show_cart();
-        } else {
-            $cart = [
-                'id'                => $id,
-                'name'              => $paket,
-                'price'             => $harga,
-                'kode_invoice'      => $invoice,
-                'qty'               => $qty,
-                'nama'              => $member,
-                'tanggal'           => $tgl,
-                'nama_lengkap'      => $user,
-                'nama_outlet'       => $outlet,
-                'tgl_selesai'       => $tglSelesai,
-            ];
-            $this->cart->insert($cart);
-            echo $this->show_cart();
-        }
+        $cartDisc = [
+            'id'                => $id,
+            'name'              => $paket,
+            'price'             => $harga,
+            'kode_invoice'      => $invoice,
+            'qty'               => $berat != null ? $berat : $qty,
+            'nama'              => $member,
+            'tanggal'           => $tgl,
+            'nama_lengkap'      => $user,
+            'diskon'            => $diskon != null ? $diskon : '-',
+            'keterangan'        => $keterangan != null ? $keterangan : '-',
+            'pajak'             => 10,
+            'nama_outlet'       => $outlet,
+            'tgl_selesai'       => $tglSelesai,
+        ];
+        $this->cart->insert($cartDisc);
+        echo $this->show_cart();
     }
 
     public function simpanTransaksi()
@@ -98,6 +86,8 @@ class Transaksi extends CI_Controller
             foreach ($this->cart->contents() as $items) {
 
                 $insert = [
+                    'jumlah_diskon' => $items['diskon'],
+                    'keterangan' => $items['keterangan'],
                     'kode_invoice' => $items['kode_invoice'],
                     'nama' => $items['nama'],
                     'nama_paket' => $items['name'],
@@ -107,7 +97,7 @@ class Transaksi extends CI_Controller
                     'tanggal' => date('Y-m-d', strtotime($items['tanggal'])),
                     'status' => 'Baru',
                     'status_bayar' => 'Belum bayar',
-                    'tgl_selesai' => date('Y-m-d', strtotime($items['tgl_selesai']))
+                    'tgl_selesai' => date('Y-m-d', strtotime($items['tgl_selesai'])),
                 ];
                 $insert = $this->db->insert('t_transaksi', $insert);
             }
@@ -128,17 +118,18 @@ class Transaksi extends CI_Controller
         foreach ($this->cart->contents() as $items) {
             $no++;
             $total = $items['qty'] * $items['price'];
+            $totalAll = ($total - ($items['diskon'] == '-' ? 0 : $items['diskon'] / 100 * $total)) * 1.1;
             $output .= '
 			<tr>
 			<td>' . $no . '</td>
 			<td>' . $items['kode_invoice'] . '</td>
-			<td>' . $items['tanggal'] . '</td>
 			<td>' . $items['nama'] . '</td>
 			<td>' . $items['name'] . '</td>
-			<td>' . $items['tgl_selesai'] . '</td>
 			<td>Rp. ' . number_format($items['price'], 0, ',', '.') . '</td>
 			<td>' . $items['qty'] . '</td>
-			<td>Rp. ' . number_format($total, 0, ',', '.') . '</td>
+			<td>' . $items['diskon'] . ' %</td>
+			<td>' . $items['pajak'] . ' %</td>
+			<td data-total="' . $totalAll . '">Rp. ' . number_format($totalAll, 0, ',', '.') . '</td>
 			<td><a href="javascript:void(0);" class="text-danger deleteCart" data-id_cart="' . $items['rowid'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
 			</tr>
 			';

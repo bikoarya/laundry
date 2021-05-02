@@ -8,6 +8,69 @@ class Models extends CI_Model
     var $column_search = array('nama_paket', 'jenis', 'nama_outlet', 'harga'); //set column field database for datatable searchable 
     var $order = array('id_paket' => 'asc'); // default order
 
+    var $table_member = 't_member';
+    var $column_order_member = array(null, 'id_outlet', 'nama', 'alamat_member', 'jenis_kelamin', 'tlp_member'); //set column field database for datatable orderable
+    var $column_search_member = array('nama', 'alamat_member', 'jenis_kelamin', 'tlp_member'); //set column field database for datatable searchable 
+    var $order_member = array('id_member' => 'asc'); // default order
+
+    private function _get_datatables_query_member()
+    {
+        $this->db->select('*');
+        $this->db->from('t_member');
+        $this->db->join('t_outlet', 't_member.id_outlet = t_outlet.id_outlet');
+
+        $i = 0;
+
+        foreach ($this->column_search_member as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_member) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_member[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_member)) {
+            $order = $this->order_member;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_member()
+    {
+        $this->_get_datatables_query_member();
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_member()
+    {
+        $this->_get_datatables_query_member();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_member()
+    {
+        $this->db->from($this->table_member);
+        return $this->db->count_all_results();
+    }
+
     private function _get_datatables_query()
     {
         $this->db->select('*');

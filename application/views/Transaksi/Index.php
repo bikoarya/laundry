@@ -17,12 +17,12 @@
                                         <tr>
                                             <td>No</td>
                                             <td>Kode Invoice</td>
-                                            <td>Tanggal Terima</td>
                                             <td>Nama Member</td>
                                             <td>Paket</td>
-                                            <td>Tanggal Selesai</td>
                                             <td>Harga</td>
                                             <td>Berat</td>
+                                            <td>Diskon</td>
+                                            <td>Pajak</td>
                                             <td>Total</td>
                                             <td>Aksi</td>
                                         </tr>
@@ -125,11 +125,11 @@
                                     <input type="text" class="form-control" data-date-format="dd M yyyy" name="tglSelesai" id="tglSelesai" autocomplete="off" placeholder="Tanggal selesai">
                                 </div>
                                 <div class="form-group">
-                                    <label for="tNamaPaket">Diskon</label>
+                                    <label for="tDiskon">Diskon</label>
                                     <select class="form-control tDiskon" name="tDiskon" id="tDiskon" style="width: 100%;" autocomplete="off">
                                         <option value=""></option>
                                         <?php foreach ($diskon as $disc) : ?>
-                                            <option value="<?= $disc['id_diskon'] ?>"><?= $disc['jumlah_diskon']; ?> %</option>
+                                            <option value="<?= $disc['jumlah_diskon'] ?>"><?= $disc['jumlah_diskon']; ?> %</option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

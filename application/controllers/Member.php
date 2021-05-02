@@ -57,7 +57,7 @@ class Member extends CI_Controller
 				<td>' . $value['alamat_member'] . '</td>
 				<td>' . $value['jenis_kelamin'] . '</td>
 				<td>' . $value['tlp_member'] . '</td>
-				<td> <a href="javascript:void(0);" class="text-success editMember" data-id_member="' . $value['id_member'] . '" data-nama="' . $value['nama'] . '" data-alamat="' . $value['alamat'] . '" data-gender="' . $value['jenis_kelamin'] . '" data-tlp="' . $value['tlp'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editMember"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusMember" data-id_member="' . $value['id_member'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
+				<td> <a href="javascript:void(0);" class="text-success editMember" data-id_member="' . $value['id_member'] . '" data-nama="' . $value['nama'] . '" data-alamat="' . $value['alamat_member'] . '" data-gender="' . $value['jenis_kelamin'] . '" data-tlp="' . $value['tlp_member'] . '"><p class="text-primary d-inline mr-4" data-toggle="modal" data-target="#editMember"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> <a href="javascript:void(0);" class="text-danger hapusMember" data-id_member="' . $value['id_member'] . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a></td>
 				</tr>';
         }
 
@@ -88,5 +88,34 @@ class Member extends CI_Controller
         $id = $this->input->post('id');
         $where = ['id_member' => $id];
         $this->model->delete('t_member', $where);
+    }
+
+    public function ajaxList()
+    {
+        $list = $this->model->get_datatables_member();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $member) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $member->nama;
+            $row[] = $member->alamat_member;
+            $row[] = $member->jenis_kelamin;
+            $row[] = $member->tlp_member;
+            $row[] = '<a href="javascript:void(0)"><p class="text-primary d-inline mr-4 editMember" data-id_member="' . $member->id_member . '" data-nama="' . $member->nama . '" data-alamat="' . $member->alamat_member . '" data-gender="' . $member->jenis_kelamin . '" data-tlp="' . $member->tlp_member . '" data-toggle="modal" data-target="#editMember"><i class="fas fa-edit" style="font-size: 18px" data-placement="bottom" title="Edit"></i></p></a> 
+			<a href="javascript:void(0);" class="text-danger hapusMember" data-id_member="' . $member->id_member . '"><p class="text-danger d-inline"><i class="fas fa-trash-alt text-danger" style="font-size: 18px" data-placement="bottom" title="Hapus"></i></p></a>';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->model->count_all_member(),
+            "recordsFiltered" => $this->model->count_filtered_member(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
     }
 }
