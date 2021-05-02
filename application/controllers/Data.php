@@ -7,10 +7,11 @@ class Data extends CI_Controller
     {
         if ($this->session->userdata('nama_lengkap') != null) {
             $join = [
-                't_paket' => 't_transaksi.nama_paket=t_paket.nama_paket'
+                't_paket' => 't_transaksi.nama_paket=t_paket.nama_paket',
+                't_outlet' => 't_paket.id_outlet=t_outlet.id_outlet',
             ];
             $where = [
-                'nama_outlet' => $this->session->userdata('nama_outlet')
+                't_outlet.nama_outlet' => $this->session->userdata('nama_outlet')
             ];
 
             $data['transaksi'] = $this->model->joinOrder('t_transaksi', $join, $where)->result_array();

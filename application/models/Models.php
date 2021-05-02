@@ -363,6 +363,9 @@ class Models extends CI_Model
 
     function joinOrder($table = null,  $join = null, $where = null)
     {
+        $this->db->select('*');
+        $this->db->from($table);
+
         if ($join != null) {
             foreach ($join as $keyj => $valuej) {
                 $this->db->join($keyj, $valuej);
@@ -374,7 +377,7 @@ class Models extends CI_Model
             }
         }
         $this->db->order_by('id_transaksi', 'DESC');
-        $data = $this->db->get($table);
+        $data = $this->db->get();
         return $data;
     }
 
